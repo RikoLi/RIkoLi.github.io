@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/kasumi-apple-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/kasumi-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/kasumi-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Helvetica:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"rikoli.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.8.1","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="最原始的SVM是一个线性二分类器，它的根本目的是寻找一个可以将训练样本划分开的高维空间内的超平面。很明显，这种超平面有很多，但是哪一个是最好的呢？">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习笔记：支持向量机SVM基本原理">
+<meta property="og:url" content="https://rikoli.github.io/2018/09/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BASVM%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/index.html">
+<meta property="og:site_name" content="Rikoの地下劇場">
+<meta property="og:description" content="最原始的SVM是一个线性二分类器，它的根本目的是寻找一个可以将训练样本划分开的高维空间内的超平面。很明显，这种超平面有很多，但是哪一个是最好的呢？">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-09-10T15:52:59.000Z">
+<meta property="article:modified_time" content="2022-02-05T12:50:37.192Z">
+<meta property="article:author" content="Riko">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://rikoli.github.io/2018/09/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BASVM%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://rikoli.github.io/2018/09/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BASVM%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/","path":"2018/09/10/机器学习笔记：支持向量机SVM基本原理/","title":"机器学习笔记：支持向量机SVM基本原理"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>机器学习笔记：支持向量机SVM基本原理 | Rikoの地下劇場</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Rikoの地下劇場</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">日日精进</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%A1%AE%E5%AE%9ASVM%E7%9A%84%E5%88%86%E7%B1%BB%E8%B6%85%E5%B9%B3%E9%9D%A2"><span class="nav-number">1.</span> <span class="nav-text">如何确定SVM的分类超平面</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%B3%E7%AD%96%E8%BE%B9%E7%95%8C%EF%BC%9A%E6%9C%80%E4%BD%B3%E7%9A%84%E5%88%86%E7%B1%BB%E8%B6%85%E5%B9%B3%E9%9D%A2"><span class="nav-number">1.1.</span> <span class="nav-text">决策边界：最佳的分类超平面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%B4%E9%9A%94%E5%92%8C%E6%9C%80%E5%A4%A7%E9%97%B4%E9%9A%94%E5%81%87%E8%AE%BE"><span class="nav-number">1.2.</span> <span class="nav-text">间隔和最大间隔假设</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96-gamma"><span class="nav-number">2.</span> <span class="nav-text">如何优化$\gamma$</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98"><span class="nav-number">2.1.</span> <span class="nav-text">对偶问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%8D%E8%BF%9B%E4%B8%80%E6%AD%A5"><span class="nav-number">3.</span> <span class="nav-text">再进一步</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B8%E5%87%BD%E6%95%B0%EF%BC%88Kernel-Function%EF%BC%89"><span class="nav-number">3.1.</span> <span class="nav-text">核函数（Kernel Function）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%93%AA%E4%BA%9B%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E4%BD%9C%E6%A0%B8%E5%87%BD%E6%95%B0%EF%BC%9F"><span class="nav-number">3.1.1.</span> <span class="nav-text">哪些函数可以作核函数？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AF%E9%97%B4%E9%9A%94"><span class="nav-number">3.2.</span> <span class="nav-text">软间隔</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Riko"
+      src="/images/kasumi.png">
+  <p class="site-author-name" itemprop="name">Riko</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/RikoLi" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;RikoLi" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://lovelive.ws/" title="https:&#x2F;&#x2F;lovelive.ws&#x2F;" rel="noopener" target="_blank">μ's时光蛋</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://aqours.tv/" title="https:&#x2F;&#x2F;aqours.tv&#x2F;" rel="noopener" target="_blank">Aqours许愿瓶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liella.tv/" title="https:&#x2F;&#x2F;liella.tv&#x2F;" rel="noopener" target="_blank">Liella星象馆</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://rikoli.github.io/2018/09/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BASVM%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/kasumi.png">
+      <meta itemprop="name" content="Riko">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rikoの地下劇場">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          机器学习笔记：支持向量机SVM基本原理
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-09-10 23:52:59" itemprop="dateCreated datePublished" datetime="2018-09-10T23:52:59+08:00">2018-09-10</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-02-05 20:50:37" itemprop="dateModified" datetime="2022-02-05T20:50:37+08:00">2022-02-05</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>最原始的SVM是一个线性二分类器，它的根本目的是寻找一个可以将训练样本划分开的高维空间内的超平面。很明显，这种超平面有很多，但是哪一个是最好的呢？</p>
+<span id="more"></span>
+
+<p>评价作为边界的超平面优秀与否的判据是：这个超平面是否能产生鲁棒性最强的分类结果，泛化能力最强。</p>
+<p>因此，在众多能划分开训练样本的超平面中，我们认为，距离各样本尽可能“远”<a href="%E8%BF%99%E9%87%8C%E2%80%9C%E8%BF%9C%E2%80%9D%E6%8C%87%E7%9A%84%E6%98%AF%EF%BC%8C%E5%B0%86%E8%A2%AB%E5%88%86%E7%B1%BB%E7%9A%84%E5%90%84%E7%B1%BB%E8%AE%AD%E7%BB%83%E6%A0%B7%E6%9C%AC%E9%9B%86%E5%90%88%E4%BD%9C%E4%B8%BA%E4%B8%80%E4%B8%AA%E6%95%B4%E4%BD%93%EF%BC%8C%E8%BF%99%E4%BA%9B%E9%9B%86%E5%90%88%E5%BD%BC%E6%AD%A4%E4%B9%8B%E9%97%B4%E7%9A%84%E2%80%9C%E8%B7%9D%E7%A6%BB%E2%80%9D%E5%B0%BD%E5%8F%AF%E8%83%BD%E2%80%9C%E8%BF%9C%22%E3%80%82%E6%88%91%E5%BF%85%E9%A1%BB%E6%89%BF%E8%AE%A4%EF%BC%8C%E8%BF%99%E7%A7%8D%E5%AE%9A%E4%B9%89%E9%9D%9E%E5%B8%B8%E4%B8%8D%E4%B8%A5%E8%B0%A8%EF%BC%8C%E4%BD%86%E6%98%AF%E6%88%91%E8%BF%98%E6%98%AF%E8%AE%A4%E4%B8%BA%E8%BF%99%E6%A0%B7%E8%A7%A3%E9%87%8A%E6%AF%94%E8%BE%83%E5%A5%BD%E7%90%86%E8%A7%A3%E3%80%82%E4%BB%8E%E5%90%8E%E6%96%87%E5%8F%AF%E7%9F%A5%EF%BC%8C%E2%80%9C%E4%BD%BF%E5%B0%BD%E5%8F%AF%E8%83%BD%E8%BF%9C%E2%80%9D%E4%BC%BC%E4%B9%8E%E5%8F%AF%E4%BB%A5%E7%AD%89%E4%BB%B7%E4%B8%BA%E2%80%9C%E6%9C%80%E5%A4%A7%E5%8C%96%E9%97%B4%E9%9A%94$%5Cgamma$%E2%80%9D%EF%BC%8C%E8%BF%99%E6%A0%B7%E8%A7%A3%E9%87%8A%E4%BC%BC%E4%B9%8E%E6%9B%B4%E5%8A%A0%E4%B8%A5%E8%B0%A8%E3%80%82">^1</a>的那个超平面是最好的分界超平面，我们要找到这个尽可能远的距离的表达式并优化它。这个超平面可由它所划分的两类训练样本中距离该平面<strong>最近</strong>的几个样本所确定，因此这几个样本得名<strong>支持向量</strong>（Support Vector），它们“支持”了分类超平面。</p>
+<h1 id="如何确定SVM的分类超平面"><a href="#如何确定SVM的分类超平面" class="headerlink" title="如何确定SVM的分类超平面"></a>如何确定SVM的分类超平面</h1><h2 id="决策边界：最佳的分类超平面"><a href="#决策边界：最佳的分类超平面" class="headerlink" title="决策边界：最佳的分类超平面"></a>决策边界：最佳的分类超平面</h2><p>怎么找到最佳的分类超平面呢？首先，我们列出要得到的超平面的几条性质，然后我们使用这些性质构建出超平面满足的约束关系，从而得到超平面。</p>
+<p>分类超平面的性质：</p>
+<ul>
+<li>它是一个超平面，可以用线性组合表示</li>
+<li>它距离它所划分的两类训练样本中支持向量的距离一样远</li>
+<li>它距离它所划分的两类训练样本中的支持向量尽可能远</li>
+</ul>
+<p>于是我们可以得出关于超平面的约束如下，首先要满足是个平面，一般我们称其为“决策边界”(Decision Boundary)：<br>$$DB: \mathbf{w}^T\mathbf{x} + b = 0$$</p>
+<p>上式中，$\mathbf{w}$为权重向量（SVM中我们要优化的目标），$\mathbf{x}$为训练样本的输入向量，b为偏差值。满足上式描述的输入向量$\mathbf{x}$全部存在于以$\mathbf{w}$为唯一参数决定的超平面上。</p>
+<p>我们要衡量训练样本到超平面的距离，使用点到超平面距离公式描述任意一个训练样本（我们使用编号i表示这个样本）到超平面的距离：<br>$$d_i = \frac{|\mathbf{w}^T\mathbf{x}_i+b|}{||\mathbf{w}||}$$</p>
+<p>注意上式中$\mathbf{x}_i$表示第i个训练样本的输入向量。</p>
+<h2 id="间隔和最大间隔假设"><a href="#间隔和最大间隔假设" class="headerlink" title="间隔和最大间隔假设"></a>间隔和最大间隔假设</h2><p>要继续推导SVM的原理，还要明确两个概念：间隔和最大间隔假设。</p>
+<p>上文提到，决策边界要离支持向量尽可能远，且两类的支持向量距离决策边界距离相等，这说明被分类的两类支持向量分别存在于两个平行于决策边界的超平面上，它们距决策边界的距离相同。于是，决策边界和两个由支持向量构成的超平面划分出了一个不存在训练样本的区域，这个区域的大小称为“间隔”（Margin），我们用$\gamma$表示它。</p>
+<p>由于决策边界和两个支持向量超平面距离相同，确定一个支持向量超平面距离决策边界的距离乘以二即可得到$\gamma$。可是，根据不同的训练样本情况，一个支持向量超平面和决策边界的距离似乎可以是任意实数c，这为$\gamma$的确定引入了新的未知量c。</p>
+<p>不过，可以证明[^2]无论c取多少，都可以通过缩放变换将其变为1，这就为确定$\gamma$提供了计算上的方便。</p>
+<p>[^2]: 如果没记错，AndrewNg在他的机器学习讲义中证明了，此处不赘述。（<del>实际上是我忘了2333</del>）</p>
+<p>c取1，也就是说我们确定了两个由支持向量确定的超平面，它们刻画了训练样本的正确分类：<br>$$\begin{cases}<br>\mathbf{w}^T\mathbf{x}<em>+ + b \ge 1,\space{} y</em>+ = 1 \<br>\mathbf{w}^T\mathbf{x}<em>- + b \le 1,\space{} y</em>- = -1<br>\end{cases}$$</p>
+<p>上式中，训练样本分为正类和负类，正确分类时，正类结果为1，负类结果为-1，支持向量所在平面即为取等号是对应的两个超平面。上式即为“最大间隔假设”。</p>
+<p>还记得我们最开始的目的吗？让决策边界离训练样本尽可能远，现在我们有了$\gamma$来衡量“远近”，因此我们目的就是使$\gamma$尽可能大。上文提到了点到超平面距离，我们将其用在支持向量上，于是我们得到间隔的表达式：<br>$$\gamma = \frac{2}{||\mathbf{w}||}$$</p>
+<p>可喜可贺，至此我们已经得到了要优化的表达式了！</p>
+<h1 id="如何优化-gamma"><a href="#如何优化-gamma" class="headerlink" title="如何优化$\gamma$"></a>如何优化$\gamma$</h1><p>SVM的构建至此已经基本完成，剩下的就是数学上的处理了。</p>
+<p>整理一下我们推导出的结论，我们目前要做的是：<br>$$\begin{gathered}\max_{\mathbf{w}, b} \frac{2}{||\mathbf{w}||} \<br>s.t.\space{} y_i(\mathbf{w}^T\mathbf{x}_i+b) \ge 1, \space{} i = 1,2,…n<br>\end{gathered}$$</p>
+<p>其中，第二个式子是最大间隔假设的两个式子的合在一起写的形式。下标i表示第i个样本，我们假设一共n个样本，因此一共有n条限制条件，其含义为全部n个样本全部被正确分类。</p>
+<p>很明显，我们需要尽量使第一个式子的分母小，为了优化方便，我们考虑优化下面等价的式子，<strong>SVM的本质就是这两个式子：</strong><br>$$\begin{gathered}\min_{\mathbf{w}, b} \frac{1}{2} ||\mathbf{w}||^2 \<br>s.t.\space{}y_i(\mathbf{w}^T\mathbf{x}_i+b) \ge 1, \space{} i = 1,2,…n<br>\end{gathered}$$</p>
+<p>怎么优化呢？乍一看，这是个凸二次规划问题，是有固定解法的，不过对于SVM还有更高效的解法。对于所有约束条件优化问题，我们可以使用SMO算法进行优化<a href="%E4%BD%BF%E7%94%A8SMO%E8%BF%9B%E8%A1%8C%E4%BC%98%E5%8C%96%E5%8F%AF%E4%BB%A5%E5%8F%82%E8%80%83%5Bhttps://www.cnblogs.com/pinard/p/6111471.html%5D(https://www.cnblogs.com/pinard/p/6111471.html)">^3</a>，这点让我们当做这篇文章的题外话吧。</p>
+<h2 id="对偶问题"><a href="#对偶问题" class="headerlink" title="对偶问题"></a>对偶问题</h2><p>上述待优化的问题可以转换成对偶问题求解，使原函数尽可能小的对偶问题是使得对偶的函数（拉格朗日函数）尽可能大。构建拉格朗日函数：<br>$$L(\mathbf{w}, b, \mathbf{\alpha}) = \frac{1}{2} ||\mathbf{w}||^2 + \sum_{i=1}^{n}\alpha_i(1-y_i(\mathbf{w}^T\mathbf{x}_i+b))$$</p>
+<p>将$L$对$\mathbf{w}$和$b$求偏导数，并令偏导数等于零，对于每一个分量：<br>$$\begin{aligned}<br>\frac{\partial{L}}{\partial{w_j}} &amp;= w_j - \alpha_iy_ix_i^{(j)} = 0 \<br>\frac{\partial{L}}{\partial{b}} &amp;= \alpha_iy_i = 0<br>\end{aligned}$$</p>
+<p>写成向量表示：<br>$$\begin{aligned}<br>\mathbf{w} &amp;= \sum_{i=1}^n\alpha_iy_i\mathbf{x}<em>i \<br>0 &amp;= \sum</em>{i=1}^n\alpha_iy_i<br>\end{aligned}$$</p>
+<p>将上述两式代回$L$，消去$\mathbf{w}$和$b$，得到：<br>$$L = \sum_{i=1}^n\alpha_i - \frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\alpha_i\alpha_jy_iy_j\mathbf{x}_i^T\mathbf{x}_j, \space{} \alpha_i \ge 0$$</p>
+<p>接下来我们要做的就是求使得$L$最大化的$\mathbf{\alpha_i}$，进而可得$\mathbf{w}$和$b$，此处就用到参考中的SMO算法。</p>
+<h1 id="再进一步"><a href="#再进一步" class="headerlink" title="再进一步"></a>再进一步</h1><p>我们已经推导得出基本的线性可分二分类硬间隔SVM的数学表达了，接下来我们来看看怎么让这个模型更加贴近实用，我们还需要补充一些内容。</p>
+<h2 id="核函数（Kernel-Function）"><a href="#核函数（Kernel-Function）" class="headerlink" title="核函数（Kernel Function）"></a>核函数（Kernel Function）</h2><p>核函数的引入帮助我们将SVM从只支持线性可分拓展到支持线性不可分。</p>
+<p>对非线性可分问题，我们将原特征空间中线性不可分的样本点通过某类映射$\phi(\cdot)$映射到高维特征空间中，在这个特征空间中它们是线性可分的。之前的推导中需要计算特征向量的内积$\mathbf{x}_i^T\mathbf{x}_j$，经过映射后对应高维特征向量也需要计算内积$\phi(\mathbf{x}_i)^T\phi(\mathbf{x}_j)$，可是因为向量维数增多，直接计算高维向量内积很困难，于是我们构想一个函数$\kappa(\cdot, \cdot)$使其<strong>能在原始特征空间中使用原始特征向量直接计算高维特征向量内积的结果</strong>，即$\kappa(\mathbf x_i, \mathbf x_j) = \phi(\mathbf{x}_i)^T\phi(\mathbf{x}_j)$这种函数$\kappa$称作<strong>核函数</strong>，是一种隐式映射，起到升维的作用。</p>
+<p>将核函数加入到SVM表达式中，得到：</p>
+<p>$$<br>L = \sum_{i=1}^n\alpha_i - \frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\alpha_i\alpha_jy_iy_j \kappa\left(\mathbf x_i, \mathbf x_j \right), \space{} \alpha_i \ge 0<br>$$</p>
+<p>同样用SMO去求$\alpha_i$即可。</p>
+<h3 id="哪些函数可以作核函数？"><a href="#哪些函数可以作核函数？" class="headerlink" title="哪些函数可以作核函数？"></a>哪些函数可以作核函数？</h3><p>核函数种类有很多，可以用作核函数的映射需要遵循一定的性质：核矩阵半正定。核矩阵定义在训练样本集合$\mathbf D = {\mathbf x_1, \mathbf x_2, \dots, \mathbf x_m}$上，即：</p>
+<p>$$<br>\mathbf D = \begin{bmatrix}<br>\kappa(\mathbf x_1, \mathbf x_1) &amp; \cdots &amp; \kappa(\mathbf x_1, \mathbf x_m) \<br>\vdots &amp; \ddots &amp; \vdots \<br>\kappa(\mathbf x_m, \mathbf x_1) &amp; \cdots &amp; \kappa(\mathbf x_m, \mathbf x_m)<br>\end{bmatrix}<br>$$</p>
+<p>上述矩阵半正定。同时还要求$\kappa$满足对称性，即：</p>
+<p>$$<br>\kappa(\mathbf x_i, \mathbf x_j) = \kappa(\mathbf x_j, \mathbf x_i)<br>$$</p>
+<p>举几个例子：</p>
+<ul>
+<li>高斯核：$\kappa(\mathbf x, \mathbf y) = \exp{\left(-\frac{||\mathbf x - \mathbf y||^2}{2\sigma^2}\right)}$，$\sigma&gt;0$，称带宽（非叫方差也无所谓，反正表示一个范围的大小）</li>
+<li>多项式核：$\kappa(\mathbf x, \mathbf y) = \left(\mathbf x^T \mathbf y\right)^d$， $d$为多项式次数</li>
+</ul>
+<h2 id="软间隔"><a href="#软间隔" class="headerlink" title="软间隔"></a>软间隔</h2><p>核函数似乎已经解决了线性不可分问题，实际上在真实环境下，只用核函数可能会导致过拟合的问题，因此我们要向SVM中加入正则项进行泛化，这样才能尽可能表达数据的真实分布情况，而非仅拟合出学习样本数据的分布，这种思想下SVM的决策平面称为<strong>软间隔</strong>。</p>
+<p>“软间隔”正则化可以被我们表示为不满足SVM约束条件：<br>$$<br>y_i(\mathbf{w}^T\mathbf{x}_i+b) \ge 1<br>$$</p>
+<p>于是我们将优化目标修改为：<br>$$<br>\min_{\mathbf{w},b}\frac{1}{2}||\mathbf{w}||^2+C\sum_{i=1}^nloss(y_i(\mathbf{w}^T\mathbf{x}_i+b)-1)<br>$$</p>
+<p>$C &gt; 0$，在这里是一个超参数，用来调节软间隔添加的强度。</p>
+<p>我们使用$loss(\cdot)$决定“错误”判断的样本点，根据这个函数的不同选择，我们可以得到不同的SVM。使用对率损失函数$l_{log}=log(1+e^{-z})$可以得到多分类SVM的雏形。如果只考虑二分类，更多使用hinge损失函数$l_{hinge}=\max{(0, 1-z)}$。</p>
+<p>使用hinge损失函数的情况中，我们一般将损失函数的每一项记作<strong>松弛变量</strong>$\xi_i$，因此优化目标写为：<br>$$<br>\min_{\mathbf{w},b}\frac{1}{2}||\mathbf{w}||^2+C\sum_{i=1}^n\xi_i<br>$$</p>
+<p>$$<br>\xi_i = \max{\left(0, 1-y_i(\mathbf{w}^T\mathbf{x}_i+b)\right )}<br>$$</p>
+<p>接下来和前面的推导一样，转换为对偶问题求参数即可。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/08/11/Python-Tkinter%E5%BA%93%E5%8F%82%E8%80%83%E6%89%8B%E5%86%8C/" rel="prev" title="Python Tkinter库参考手册">
+                  <i class="fa fa-chevron-left"></i> Python Tkinter库参考手册
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/10/14/%E5%85%B3%E4%BA%8E%E7%9F%A9%E9%98%B5%E5%87%A0%E4%BD%95%E6%84%8F%E4%B9%89%E7%9A%84%E7%90%86%E8%A7%A3/" rel="next" title="关于矩阵几何意义的理解">
+                  关于矩阵几何意义的理解 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Riko</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

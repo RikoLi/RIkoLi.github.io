@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/kasumi-apple-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/kasumi-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/kasumi-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Helvetica:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"rikoli.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.8.1","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="计算机视觉学习笔记，参考资料：  Stanford, CS231A, Computer Vision: From 3D Resconstruction to Recognition 计算机视觉，2019 Winter, ZJU">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Computer Vision Notes">
+<meta property="og:url" content="https://rikoli.github.io/2019/09/25/Computer-Vision-Notes/index.html">
+<meta property="og:site_name" content="Rikoの地下劇場">
+<meta property="og:description" content="计算机视觉学习笔记，参考资料：  Stanford, CS231A, Computer Vision: From 3D Resconstruction to Recognition 计算机视觉，2019 Winter, ZJU">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.ax1x.com/2019/12/13/Q2Mdyj.png">
+<meta property="article:published_time" content="2019-09-25T12:32:17.000Z">
+<meta property="article:modified_time" content="2022-02-05T12:53:30.164Z">
+<meta property="article:author" content="Riko">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/12/13/Q2Mdyj.png">
+
+
+<link rel="canonical" href="https://rikoli.github.io/2019/09/25/Computer-Vision-Notes/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://rikoli.github.io/2019/09/25/Computer-Vision-Notes/","path":"2019/09/25/Computer-Vision-Notes/","title":"Computer Vision Notes"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Computer Vision Notes | Rikoの地下劇場</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Rikoの地下劇場</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">日日精进</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Camera-Models"><span class="nav-number">1.</span> <span class="nav-text">Camera Models</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E6%83%85%E5%86%B5"><span class="nav-number">1.1.</span> <span class="nav-text">简单情况</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Homogeneous-Coordinates-%E9%BD%90%E6%AC%A1%E5%9D%90%E6%A0%87%E7%B3%BB"><span class="nav-number">1.1.1.</span> <span class="nav-text">Homogeneous Coordinates 齐次坐标系</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#But%E2%80%A6"><span class="nav-number">1.2.</span> <span class="nav-text">But…</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%8B%E8%BD%AC%E5%8F%98%E6%8D%A2"><span class="nav-number">1.2.1.</span> <span class="nav-text">旋转变换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%B3%E7%A7%BB%E5%8F%98%E6%8D%A2"><span class="nav-number">1.2.2.</span> <span class="nav-text">平移变换</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Camera-Calibration"><span class="nav-number">2.</span> <span class="nav-text">Camera Calibration</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8E%E6%8A%95%E5%BD%B1%E5%8F%98%E6%8D%A2%E7%9F%A9%E9%98%B5%E8%AF%B4%E8%B5%B7"><span class="nav-number">2.1.</span> <span class="nav-text">从投影变换矩阵说起</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84"><span class="nav-number">2.2.</span> <span class="nav-text">解线性方程组</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Local-Features"><span class="nav-number">3.</span> <span class="nav-text">Local Features</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Harris%E8%A7%92%E7%82%B9"><span class="nav-number">3.1.</span> <span class="nav-text">Harris角点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E5%AF%BC"><span class="nav-number">3.1.1.</span> <span class="nav-text">推导</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%B9%E8%BF%9B"><span class="nav-number">3.1.2.</span> <span class="nav-text">改进</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B9%B3%E5%9D%87%E4%BA%AE%E5%BA%A6"><span class="nav-number">3.1.2.1.</span> <span class="nav-text">平均亮度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Harris-Laplacian"><span class="nav-number">3.1.2.2.</span> <span class="nav-text">Harris-Laplacian</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SIFT%E7%89%B9%E5%BE%81%E7%82%B9"><span class="nav-number">3.2.</span> <span class="nav-text">SIFT特征点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AD%9B%E9%80%89%EF%BC%9AScale-Pyramid%E4%B8%8EGaussian-Pyramid%E4%B8%8EDoG"><span class="nav-number">3.2.1.</span> <span class="nav-text">筛选：Scale Pyramid与Gaussian Pyramid与DoG</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SIFT%E6%8F%8F%E8%BF%B0%E5%AD%90"><span class="nav-number">3.2.2.</span> <span class="nav-text">SIFT描述子</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Riko"
+      src="/images/kasumi.png">
+  <p class="site-author-name" itemprop="name">Riko</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/RikoLi" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;RikoLi" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://lovelive.ws/" title="https:&#x2F;&#x2F;lovelive.ws&#x2F;" rel="noopener" target="_blank">μ's时光蛋</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://aqours.tv/" title="https:&#x2F;&#x2F;aqours.tv&#x2F;" rel="noopener" target="_blank">Aqours许愿瓶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liella.tv/" title="https:&#x2F;&#x2F;liella.tv&#x2F;" rel="noopener" target="_blank">Liella星象馆</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://rikoli.github.io/2019/09/25/Computer-Vision-Notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/kasumi.png">
+      <meta itemprop="name" content="Riko">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rikoの地下劇場">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Computer Vision Notes
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-09-25 20:32:17" itemprop="dateCreated datePublished" datetime="2019-09-25T20:32:17+08:00">2019-09-25</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-02-05 20:53:30" itemprop="dateModified" datetime="2022-02-05T20:53:30+08:00">2022-02-05</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>计算机视觉学习笔记，参考资料：</p>
+<ol>
+<li><em>Stanford, CS231A, Computer Vision: From 3D Resconstruction to Recognition</em></li>
+<li><em>计算机视觉，2019 Winter, ZJU</em><span id="more"></span></li>
+</ol>
+<h1 id="Camera-Models"><a href="#Camera-Models" class="headerlink" title="Camera Models"></a>Camera Models</h1><p>摄像机模型以小孔成像作为基础，描述了如何将真实世界（三维）内每个点经过投影变换映射到二维平面上对应点。映射关系可以视为一系列线性变换，完全使用矩阵代数描述。（这应该是最基础的知识了）</p>
+<p><img src="https://s2.ax1x.com/2019/12/13/Q2Mdyj.png" alt="Q2Mdyj.png"></p>
+<p>上图是传统pinhole camera模型，分成三个部分：</p>
+<ul>
+<li>投影平面坐标系$\Pi’$</li>
+<li>摄像机坐标系$O$</li>
+<li>真实世界坐标系$O_w$</li>
+</ul>
+<p>思考一下摄像机进行的工作，数学上来讲，就是将$O_w$下所有点映射到$\Pi’$下，即一个映射$E$满足：</p>
+<p>$$<br>E: \mathbb{R}^3 \rightarrow \mathbb{R}^2<br>$$</p>
+<h2 id="简单情况"><a href="#简单情况" class="headerlink" title="简单情况"></a>简单情况</h2><p>简单情况下，$O_w$与$O$坐标系相同，此时使用相似三角形可以进行坐标变换的对应关系推导，我们令$\mathbf{P}$为$O_w$内一点坐标，$\mathbf{P}’$为$\Pi’$内一点坐标，$f$为摄像机距离$\Pi’$的距离：</p>
+<p>$$<br>\mathbf{P} = \begin{bmatrix}<br>x \ y \ z<br>\end{bmatrix}, \space<br>\mathbf{P}’ = \begin{bmatrix}<br>x’ \ y’<br>\end{bmatrix} = \begin{bmatrix}<br>f\frac{x}{z} \ f\frac{y}{z}<br>\end{bmatrix}<br>$$</p>
+<p>考虑到实际中我们使用量化的像素描述坐标（因子$k,l$，表示像素/单位距离），并且根据$\Pi’$原点位置的设定可能存在平移$c_x$与$c_y$，变换关系修正为：</p>
+<p>$$<br>\mathbf{P}’ = \begin{bmatrix}<br>x’ \ y’<br>\end{bmatrix} = \begin{bmatrix}k f\frac{x}{z} + c_x \ l f\frac{y}{z} + c_y<br>\end{bmatrix} = \begin{bmatrix}\alpha\frac{x}{z} + c_x \\beta\frac{y}{z} + c_y<br>\end{bmatrix}<br>$$</p>
+<p>其中$\alpha$和$\beta$表示全部因子乘积。</p>
+<p>于是我们得到了$O$（即$O_w$）到$\Pi’$的变换方法。但是仔细一看，出现了$\frac{1}{z}$项，这说明现在的变换$(x,y,z)\rightarrow (x’,y’)$是非线性的！我们不喜欢非线性变换，所以得想个办法构造线性变换，从而可以使用矩阵代数描述变换。</p>
+<h3 id="Homogeneous-Coordinates-齐次坐标系"><a href="#Homogeneous-Coordinates-齐次坐标系" class="headerlink" title="Homogeneous Coordinates 齐次坐标系"></a>Homogeneous Coordinates 齐次坐标系</h3><p>齐次坐标系的引入使得变换能够以线性方式进行。它使用$N+1$维描述$N$维空间内一个点，具体为什么这样做这里不进行展开，自行查阅其他资料。</p>
+<p>我们将欧式坐标系记为$E$，齐次坐标系记为$H$，则变换关系为：</p>
+<p>$$\begin{aligned}<br>&amp;E \rightarrow H:\space (x,y,z) \rightarrow (x,y,z,1) \<br>&amp;H \rightarrow E:\space (x,y,z,w) \rightarrow (\frac{x}{w}, \frac{y}{w}, \frac{z}{w})<br>\end{aligned}$$</p>
+<p>我们先对$O$坐标系下的点转入齐次坐标系$O_h$，然后发现我们可以用线性的方式表示齐次坐标系下的等价变换：</p>
+<p>$$<br>\mathbf{P}_h’ = \begin{bmatrix}<br>\alpha &amp; 0 &amp; c_x &amp; 0 \<br>0 &amp; \beta &amp; c_y &amp; 0 \<br>0 &amp; 0 &amp; 1 &amp; 0<br>\end{bmatrix} \begin{bmatrix}<br>x \ y \ z \ 1<br>\end{bmatrix} = \begin{bmatrix}<br>\alpha x + c_x z \<br>\beta y + c_y z \<br>z<br>\end{bmatrix}<br>$$</p>
+<p>齐次坐标系下进行变换得到齐次坐标系下点坐标，因此我们得到$\Pi_h’$坐标系下投影点的齐次坐标，将其变换回欧式空间，得到：</p>
+<p>$$<br>\mathbf{P}’ = \begin{bmatrix}<br>\frac{\alpha x + c_x z}{z} \<br>\frac{\beta y + c_y z}{z}<br>\end{bmatrix} = \begin{bmatrix}<br>\alpha \frac{x}{z} + c_x \<br>\beta \frac{y}{z} + c_y<br>\end{bmatrix} = \begin{bmatrix}<br>x’ \ y’<br>\end{bmatrix}<br>$$</p>
+<p>这恰是欧式坐标系下投影平面$\Pi’$上的点$\mathbf{P}$投影坐标，而且我们用线性变换描述了投影变换的过程。</p>
+<p><strong>以后推导符号中不做显式说明，默认变换全部在齐次坐标系下进行。</strong></p>
+<p>最后我们做一些定义，定义Camera matrix $K$：</p>
+<p>$$<br>\mathbf{K} = \begin{bmatrix}<br>\alpha &amp; 0 &amp; c_x \<br>0 &amp; \beta &amp; c_y \<br>0 &amp; 0 &amp; 1<br>\end{bmatrix}<br>$$</p>
+<p>定义变换矩阵$M$：</p>
+<p>$$<br>\mathbf{M} = \mathbf{K} \begin{bmatrix}<br>\mathbf{I} &amp; \mathbf{0}<br>\end{bmatrix} = \begin{bmatrix}<br>\mathbf{K} &amp; \mathbf{0}<br>\end{bmatrix}<br>$$</p>
+<p>投影变换可记为：$\mathbf{P}’ = \mathbf{M}\mathbf{P}$。</p>
+<h2 id="But…"><a href="#But…" class="headerlink" title="But…"></a>But…</h2><p>注意了，我们之前的变换存在于一种简单情况下，即真实世界坐标系$O_w$与摄像机坐标系$O$相同，但是现实是，它们一般是不同的！我们完全可以使用一套独立坐标系$O_w$描述真实世界中的点。</p>
+<p>这样导致了一个问题：一共出现了三个坐标系，其中投影平面已经利用投影变换和摄像机系联系起来了，但是真实世界和摄像机还没有变换关系。</p>
+<p>我们需要一个线性变换将$O_w$系下坐标变换到$O$系下。这个变换对应空间内向量的旋转和平移，要求$\mathbb{R}^3 \rightarrow \mathbb{R}^3$。</p>
+<h3 id="旋转变换"><a href="#旋转变换" class="headerlink" title="旋转变换"></a>旋转变换</h3><p>旋转变换中三个轴有三个旋转角度，对应变换矩阵：</p>
+<p>$$\begin{aligned}<br>\mathbf{R} &amp;= \mathbf{R}_x \mathbf{R}_y \mathbf{R}_z \<br>&amp;= \begin{bmatrix}<br>1 &amp; 0 &amp; 0 \<br>0 &amp; \cos{\alpha} &amp; -\sin{\alpha} \<br>0 &amp; \sin{\alpha} &amp; \cos{\alpha}<br>\end{bmatrix} \begin{bmatrix}<br>\cos{\beta} &amp; 0 &amp; \sin{\beta} \<br>0 &amp; 1 &amp; 0 \<br>-\sin{\beta} &amp; 0 &amp; \cos{\beta}<br>\end{bmatrix} \begin{bmatrix}<br>\cos{\gamma} &amp; -\sin{\gamma} &amp; 0 \<br>\sin{\gamma} &amp; \cos{\gamma} &amp; 0 \<br>0 &amp; 0 &amp; 1<br>\end{bmatrix}<br>\end{aligned}$$</p>
+<p><del>有点复杂不是吗？</del></p>
+<h3 id="平移变换"><a href="#平移变换" class="headerlink" title="平移变换"></a>平移变换</h3><p>平移变换记为一个列向量：</p>
+<p>$$<br>\mathbf{T} = \begin{bmatrix}<br>t_x \ t_y \ t_z<br>\end{bmatrix}<br>$$</p>
+<p>现在我们把旋转、平移加入到齐次坐标系下的$O_w \rightarrow O$坐标系变换中，此时$(x,y,z,1)$为$O_w$系下齐次坐标：</p>
+<p>$$<br>\mathbf{P} = \begin{bmatrix}<br>\mathbf{R} &amp; \mathbf{T} \<br>\mathbf{0} &amp; 1<br>\end{bmatrix}_{4\times 4} \begin{bmatrix}<br>x \ y \ z \ 1<br>\end{bmatrix}<br>$$</p>
+<p>再进行投影变换实现$\mathbf{P} \rightarrow \mathbf{P}’$：</p>
+<p>$$\begin{aligned}<br>\mathbf{P}’ &amp;= \mathbf{M}\mathbf{P} \<br>&amp;= \mathbf{K} \begin{bmatrix}\mathbf{I} &amp; \mathbf{0}\end{bmatrix} \begin{bmatrix}<br>\mathbf{R} &amp; \mathbf{T} \<br>\mathbf{0} &amp; 1<br>\end{bmatrix}<em>{4\times 4} \begin{bmatrix}<br>x \ y \ z \ 1<br>\end{bmatrix} \<br>&amp;= \mathbf{K} \begin{bmatrix}\mathbf{R} &amp; \mathbf{T}\end{bmatrix}</em>{3\times 4} \begin{bmatrix}<br>x \ y \ z \ 1<br>\end{bmatrix} \<br>&amp;\triangleq \mathbf{M}_w \mathbf{P}_w<br>\end{aligned}$$</p>
+<p>以后我们仍然使用符号$\mathbf{M}$表示整个投影变换，此时其定义为：</p>
+<p>$$<br>\mathbf{M} = \mathbf{K} \begin{bmatrix}\mathbf{R} &amp; \mathbf{T}\end{bmatrix}<br>$$</p>
+<h1 id="Camera-Calibration"><a href="#Camera-Calibration" class="headerlink" title="Camera Calibration"></a>Camera Calibration</h1><p>校准的目的是让相机能够重建出三维场景，从而使图像上每个二维点都对应原三维场景下的一个点。</p>
+<h2 id="从投影变换矩阵说起"><a href="#从投影变换矩阵说起" class="headerlink" title="从投影变换矩阵说起"></a>从投影变换矩阵说起</h2><p>投影变换$\mathbf{M}$包含相机的内参和外参。内参$\mathbf{K}$描述了相机的焦距信息，外参$\begin{bmatrix}\mathbf{R} &amp; \mathbf{T}\end{bmatrix}$描述了真实世界坐标系与相机镜头坐标系之间的转换关系，于是我们能根据投影变换$\mathbf{P}’=\mathbf{M}\mathbf{P}$求得任意两点之间的坐标变换。</p>
+<p>但是相机的内外参数可能是未知的，如果想进行变换，首先得估计出相机的参数矩阵，这个过程就是校准。</p>
+<h2 id="解线性方程组"><a href="#解线性方程组" class="headerlink" title="解线性方程组"></a>解线性方程组</h2><p>由于投影变换是线性的，我们可以根据已知的坐标对应关系求解参数矩阵$\mathbf{M}$。为此，我们需要几组如下的对应关系：</p>
+<p>$$\begin{aligned}<br>(x_1’, y_1’) &amp;\longleftrightarrow (x_1, y_1, z_1) \<br>&amp; \dots \<br>(x_n’, y_n’) &amp;\longleftrightarrow (x_n, y_n, z_n)<br>\end{aligned}$$</p>
+<p>那么需要几组对应关系呢？</p>
+<h1 id="Local-Features"><a href="#Local-Features" class="headerlink" title="Local Features"></a>Local Features</h1><p>一些具有仿射变换不变性的经典图像局部特征。</p>
+<p>说在前面，特征点（feature points，或者某些特殊的叫法称“角点”，corners）与特征点描述子（descriptor）不是同种事物，概念上却容易混淆。</p>
+<p>特征点是“点”，具有几何意义，可在二维平面上用坐标$(x,y)$描述；特征点描述子，或者简称描述子，是特征“点”进行量化描述的方式，例如SIFT使用的128维向量。传统进行特征描述的时候使用特征点描述位置，同时使用某种描述子对特征进行量化。</p>
+<h2 id="Harris角点"><a href="#Harris角点" class="headerlink" title="Harris角点"></a>Harris角点</h2><p>顾名思义，是对角点敏感的特征，对角状纹理敏感，例如曲线拐点位置，使用以下概念进行描述：</p>
+<ul>
+<li>滑窗：定义可感知的变化范围/邻域</li>
+<li>能量函数$E(u,v)$：量化描述变化引起的差异</li>
+</ul>
+<p>将滑窗在图像上进行微小移动，会导致移动前后滑窗内图像亮度的变化，用三种方式为变化对应的纹理进行分类：</p>
+<ul>
+<li>平坦区域：图像变化很少，表现为较一致的亮度</li>
+<li>边缘区域：沿边缘方向变化很少，其他方向变化较大</li>
+<li>角区域：沿所有方向变化都很大</li>
+</ul>
+<h3 id="推导"><a href="#推导" class="headerlink" title="推导"></a>推导</h3><p>首先我们定义能量函数描述“变化”的大小：</p>
+<p>$$<br>E(u,v) = \sum_{x,y} w(x,y)\left(I(x+u, y+v) - I(x, y)\right)^2<br>$$</p>
+<p>其中，$(x,y)$表示滑窗内某个点，$[u,v]$表示以滑窗内$(x,y)$开始在两个方向上移动的两个小距离，对应移动前后的像素内亮度值分别为$I(x,y)$和$I(x+u,y+v)$，$w(x,y)$为滑窗定义了权重，一般使用1或者高斯函数，最后我们将滑窗内所有点的变化求加权和作为因为$(u,v)$移动造成的全部差异。</p>
+<p>不同$E$的取值表示不同方向移动带来的局部差异不同。我们关注较大和较小的取值，因为它们说明了哪些移动方向对应强烈和微弱的变化。</p>
+<p>还记得之前提到的三个区域吗？还需要对我们的目标$E$做一些变形才能将其对应到三个区域上：</p>
+<p>由于进行的是微小移动，$[u,v]$可以认为取值很小，因此一阶泰勒展开近似：</p>
+<p>$$<br>\begin{aligned}<br>    E(u,v) &amp;= \sum_{x,y} w(x,y)\left(I(x+u, y+v) - I(x, y)\right)^2 \<br>    &amp;= \sum_{x,y} w(x,y)\left(I(x,y) + u\nabla_xI + v\nabla_yI - I(x, y)\right)^2 \<br>    &amp;= \sum_{x,y} w(x,y) (u\nabla_xI + v\nabla_yI)^2 \<br>    &amp;= \sum_{x,y} w(x,y) \left( u^2\nabla^2_xI + v^2\nabla^2_yI + 2uv\nabla_xI\nabla_yI \right) \<br>    &amp;= \sum_{x,y} w(x,y) \begin{bmatrix}<br>        u &amp; v<br>    \end{bmatrix}<br>    \begin{bmatrix}<br>        \nabla^2_xI &amp; \nabla_xI\nabla_yI \<br>        \nabla_xI\nabla_yI &amp; \nabla^2_yI<br>    \end{bmatrix}<br>    \begin{bmatrix}<br>        u \ v<br>    \end{bmatrix}<br>\end{aligned}<br>$$</p>
+<p>我们令$<br>\mathbf{M} = \begin{bmatrix}<br>    \nabla^2_xI &amp; \nabla_xI\nabla_yI \<br>    \nabla_xI\nabla_yI &amp; \nabla^2_yI<br>\end{bmatrix}$，则原式可以简化为：</p>
+<p>$$<br>E(u,v) = \sum_{x,y} w(x,y) \begin{bmatrix}<br>    u &amp; v<br>\end{bmatrix}<br>\mathbf{M} \begin{bmatrix}<br>    u \ v<br>\end{bmatrix}<br>$$</p>
+<p>对$\mathbf{M}$进行特征值分解，结果得到两个特征值$\lambda_{max}$和$\lambda_{min}$，它们对应的特征向量分别为$E$变化最快和最慢的两个方向。由二次型可知，$\begin{bmatrix}<br>    u &amp; v<br>\end{bmatrix}<br>\mathbf{M} \begin{bmatrix}<br>    u \ v<br>\end{bmatrix}$代表一个二次曲面，特征向量对应其上一个等势线截面椭圆的长轴和短轴方向。</p>
+<p>我们使用特征值进行之前三种区域的分类，定义一个判决变量$R$：</p>
+<p>$$\begin{aligned}<br>R &amp;= \det \mathbf{D} - k \mathbb{Tr}(\mathbf{D}) \<br>&amp;= \lambda_{max} \lambda_{min} - k (\lambda_{max} + \lambda_{min})<br>\end{aligned}$$</p>
+<p>$R$称为corner response，根据其取值，我们确定三种区域：</p>
+<ul>
+<li>$R &gt; 0$：角区域</li>
+<li>$R &lt; 0$：边缘区域</li>
+<li>$|R| \sim 0$：平坦区域</li>
+</ul>
+<p>我们感兴趣的是角区域，因此对局部区域（由滑窗确定）找到全部$Set(R) = {R | R &gt; 0 }$然后对集合$Set(R)$内的点进行两步筛选：</p>
+<ol>
+<li>选择合适阈值筛选较大的$R$</li>
+<li>取上一步结果的局部最大值$R_{max}$</li>
+</ol>
+<p>然后我们可以找到$R_{max}$对应的$[u,v]$从而确定$(x,y)$，找到的这个点就是一个局部Harris角点。</p>
+<p>总结一下，Harris角点提取步骤为：</p>
+<ol>
+<li>确定滑窗大小</li>
+<li>计算滑窗内的梯度，得到$\mathbf{M}$</li>
+<li>计算每个滑窗对应的$R$，并得到局部最大值$R_{max}$，记录得到该值对应的点$(x,y)$</li>
+<li>$(x,y)$即为Harris角点</li>
+</ol>
+<p>可以看出，Harris角点本质上是基于梯度的局部特征点。</p>
+<h3 id="改进"><a href="#改进" class="headerlink" title="改进"></a>改进</h3><p>Harris角点对平移、旋转、光照有较好的不变性，但是缩放不变性很差。这很好理解，对于小尺度的图像，滑窗大小可能正合适对于角点有较高敏感度；但是如果图像尺度变大，原本小图中的角点因为尺度放大，导致其变得平缓（想想微积分里化曲为直，类似的道理），再使用一样的滑窗对于角点敏感度会下降。</p>
+<p>明显我们需要<strong>根据不同图像尺度选择不同滑窗大小</strong>。</p>
+<p>人为选择滑窗大小显然是不现实的，我们需要一个尺度不变量（至少变化不能特别大）来动态确定滑窗大小，换句话说，滑窗大小$S$需要被定义成一个尺度不变量的函数。</p>
+<h4 id="平均亮度"><a href="#平均亮度" class="headerlink" title="平均亮度"></a>平均亮度</h4><p>假设我们有几张不同尺度的图像，对每张图像中位置相同的Harris角点，我们独立地计算以其为中心不同大小滑窗内的亮度均值，找到均值最大时对应的滑窗大小，即为对应尺度图像应使用的滑窗大小。</p>
+<h4 id="Harris-Laplacian"><a href="#Harris-Laplacian" class="headerlink" title="Harris-Laplacian"></a>Harris-Laplacian</h4><p>我们也可以不显式地找滑窗大小，而是用多个滑窗计算一组结果，使用别的方法筛选出最好的结果。计算一系列不同大小滑窗得到的Harris角点，使用Laplacian算子进行筛选得到它们中响应最强的。</p>
+<p>步骤为：</p>
+<ol>
+<li>选取一组不同大小滑窗值</li>
+<li>计算不通滑窗下的Harris角点</li>
+<li>对找到的特征点使用Laplacian算子求响应，找到最大响应</li>
+<li>最大响应对应特征点即为最佳，在不同尺度图像下能保持较好不变性</li>
+</ol>
+<h2 id="SIFT特征点"><a href="#SIFT特征点" class="headerlink" title="SIFT特征点"></a>SIFT特征点</h2><p>SIFT特征点即Scale-Invariant Feature Transformation特征点，继承Harris角点的结果，加入一些思想实现了特征点的尺度不变性。</p>
+<h3 id="筛选：Scale-Pyramid与Gaussian-Pyramid与DoG"><a href="#筛选：Scale-Pyramid与Gaussian-Pyramid与DoG" class="headerlink" title="筛选：Scale Pyramid与Gaussian Pyramid与DoG"></a>筛选：Scale Pyramid与Gaussian Pyramid与DoG</h3><p>Harris角点出现问题即在对尺度的敏感上，SIFT在这里采用了一些方法进行特征点筛选。</p>
+<p>首先得到Harris角点，然后建立DoG，即高斯差分金字塔。设定一组尺度，在每个尺度下对图像进行对应降采样，然后对于每个尺度，采用一组不同方差的高斯核进行平滑处理，从而在每个尺度下得到一组平滑程度不同的图像。然后在每个尺度内对相邻不同平滑程度的图像作差，得到高斯差分图像。至此，在每个尺度下都有一组高斯差分图像（DoG）。</p>
+<p>接下来进行邻域筛选工作。对每个尺度内的每个DoG中每个像素，检查其在相邻空间与相邻DoG中一个邻域内是否为极值，如果为极值，该点加入该尺度下特征点集合。“邻域”同时定义在空域与DoG上，举个例子，如果某像素$(x,y)<em>i$位于$\sigma_i$的DoG图中，那么其邻域为当前DoG图中的8邻域以及相邻$\sigma</em>{i-1}$，$\sigma_{i+1}$图中的两个$3\times3$像素域，共称$(x,y)_i$的26邻域。</p>
+<h3 id="SIFT描述子"><a href="#SIFT描述子" class="headerlink" title="SIFT描述子"></a>SIFT描述子</h3><p>上述工作得到了不同尺度下特征点的集合，如何描述这些特征点？SIFT使用方向直方图构建一个128维向量作为特征点的描述子，它具有旋转、缩放、平移不变性。</p>
+<p>对每个之前得到的特征点，取以其为中心的$16\times16$邻域，将其分为4个$4\times4$的子域，共16个子域，每个子域内以$\frac{\pi}{8}$为间隔统计灰度方向直方图作为8维向量，最后将16个邻域的8维向量按固定顺序连接得到128维向量，作为特征点描述子。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/09/14/Data-Structure-Notes/" rel="prev" title="Data Structure Notes">
+                  <i class="fa fa-chevron-left"></i> Data Structure Notes
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/10/05/2019-National-Day/" rel="next" title="2019上海BILIBILI World场记">
+                  2019上海BILIBILI World场记 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Riko</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/kasumi-apple-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/kasumi-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/kasumi-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Helvetica:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"rikoli.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.8.1","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="期末复习。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络期末复习">
+<meta property="og:url" content="https://rikoli.github.io/2019/06/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/index.html">
+<meta property="og:site_name" content="Rikoの地下劇場">
+<meta property="og:description" content="期末复习。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-06-03T12:16:42.000Z">
+<meta property="article:modified_time" content="2022-02-05T12:51:21.387Z">
+<meta property="article:author" content="Riko">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://rikoli.github.io/2019/06/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://rikoli.github.io/2019/06/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/","path":"2019/06/03/计算机网络期末复习/","title":"计算机网络期末复习"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>计算机网络期末复习 | Rikoの地下劇場</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Rikoの地下劇場</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">日日精进</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Chapter-1-%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">Chapter 1 概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E8%BE%B9%E7%BC%98"><span class="nav-number">1.1.</span> <span class="nav-text">网络边缘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A5%E5%85%A5%E6%96%B9%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">接入方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%A0%E8%BE%93"><span class="nav-number">1.3.</span> <span class="nav-text">传输</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E6%96%B9%E5%BC%8F"><span class="nav-number">1.4.</span> <span class="nav-text">连接方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ISP-%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E6%8F%90%E4%BE%9B%E8%80%85"><span class="nav-number">1.5.</span> <span class="nav-text">ISP 网络服务提供者</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%B6%E6%97%B6"><span class="nav-number">1.6.</span> <span class="nav-text">延时</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%92%E8%81%94%E7%BD%91%E5%8D%8F%E8%AE%AE%E6%A0%88"><span class="nav-number">1.7.</span> <span class="nav-text">互联网协议栈</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Chapter-2-%E5%BA%94%E7%94%A8%E5%B1%82"><span class="nav-number">2.</span> <span class="nav-text">Chapter 2 应用层</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Socket"><span class="nav-number">2.1.</span> <span class="nav-text">Socket</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF-%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9E%B6%E6%9E%84"><span class="nav-number">2.2.</span> <span class="nav-text">客户端-服务器架构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP"><span class="nav-number">2.2.1.</span> <span class="nav-text">HTTP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SMTP"><span class="nav-number">2.2.2.</span> <span class="nav-text">SMTP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DNS"><span class="nav-number">2.2.3.</span> <span class="nav-text">DNS</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#P2P%E6%9E%B6%E6%9E%84"><span class="nav-number">2.3.</span> <span class="nav-text">P2P架构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#BT"><span class="nav-number">2.3.1.</span> <span class="nav-text">BT</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CDN-%E5%86%85%E5%AE%B9%E5%88%86%E5%B8%83%E7%BD%91%E7%BB%9C"><span class="nav-number">2.4.</span> <span class="nav-text">CDN 内容分布网络</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Chapter-3-%E4%BC%A0%E8%BE%93%E5%B1%82"><span class="nav-number">3.</span> <span class="nav-text">Chapter 3 传输层</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E7%94%A8-amp-%E8%A7%A3%E5%A4%8D%E7%94%A8"><span class="nav-number">3.1.</span> <span class="nav-text">复用&amp;解复用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UDP"><span class="nav-number">3.2.</span> <span class="nav-text">UDP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E9%9D%A0%E6%80%A7%E4%BC%A0%E8%BE%93"><span class="nav-number">3.3.</span> <span class="nav-text">可靠性传输</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%81%E6%8E%A7"><span class="nav-number">3.4.</span> <span class="nav-text">流控</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B"><span class="nav-number">3.5.</span> <span class="nav-text">三次握手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6"><span class="nav-number">3.6.</span> <span class="nav-text">拥塞控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ECN-%E6%98%BE%E5%BC%8F%E6%8B%A5%E5%A1%9E%E6%8F%90%E7%A4%BA"><span class="nav-number">3.7.</span> <span class="nav-text">ECN 显式拥塞提示</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Chapter-4-%E7%BD%91%E7%BB%9C%E5%B1%82%EF%BC%9A%E6%95%B0%E6%8D%AE%E5%B9%B3%E9%9D%A2"><span class="nav-number">4.</span> <span class="nav-text">Chapter 4 网络层：数据平面</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E5%99%A8%E6%9E%B6%E6%9E%84"><span class="nav-number">4.1.</span> <span class="nav-text">路由器架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IP%E5%8D%8F%E8%AE%AE"><span class="nav-number">4.2.</span> <span class="nav-text">IP协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DHCP"><span class="nav-number">4.3.</span> <span class="nav-text">DHCP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NAT-%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2"><span class="nav-number">4.4.</span> <span class="nav-text">NAT 网络地址转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IPv6"><span class="nav-number">4.5.</span> <span class="nav-text">IPv6</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Chapter-5-%E7%BD%91%E7%BB%9C%E5%B1%82%EF%BC%9A%E6%8E%A7%E5%88%B6%E5%B9%B3%E9%9D%A2"><span class="nav-number">5.</span> <span class="nav-text">Chapter 5 网络层：控制平面</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE"><span class="nav-number">5.1.</span> <span class="nav-text">路由协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E6%B2%BB%E7%B3%BB%E7%BB%9F"><span class="nav-number">5.2.</span> <span class="nav-text">自治系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ICMP"><span class="nav-number">5.3.</span> <span class="nav-text">ICMP</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Chapter-6-%E9%93%BE%E8%B7%AF%E5%B1%82"><span class="nav-number">6.</span> <span class="nav-text">Chapter 6 链路层</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1"><span class="nav-number">6.1.</span> <span class="nav-text">服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E8%AE%BE%E5%A4%87"><span class="nav-number">6.2.</span> <span class="nav-text">实现设备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E6%A3%80%E6%B5%8B"><span class="nav-number">6.3.</span> <span class="nav-text">错误检测</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A5%87%E5%81%B6%E6%A0%A1%E9%AA%8C"><span class="nav-number">6.3.1.</span> <span class="nav-text">奇偶校验</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CRC%E6%A0%A1%E9%AA%8C"><span class="nav-number">6.3.2.</span> <span class="nav-text">CRC校验</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E6%8E%A5%E5%85%A5%E5%8D%8F%E8%AE%AE"><span class="nav-number">6.4.</span> <span class="nav-text">多接入协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E9%80%94%E5%BE%84"><span class="nav-number">6.5.</span> <span class="nav-text">解决途径</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%A1%E9%81%93%E5%88%86%E9%85%8D-channel-partitionning"><span class="nav-number">6.5.1.</span> <span class="nav-text">信道分配 channel partitionning</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9A%8F%E6%9C%BA%E8%AE%BF%E9%97%AE-random-access"><span class="nav-number">6.5.2.</span> <span class="nav-text">随机访问 random access</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BD%AE%E6%B5%81%E8%AE%BF%E9%97%AE-taking-turns"><span class="nav-number">6.5.3.</span> <span class="nav-text">轮流访问 taking turns</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%80%E5%9F%9F%E7%BD%91"><span class="nav-number">6.6.</span> <span class="nav-text">局域网</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MAC%E5%9C%B0%E5%9D%80"><span class="nav-number">6.6.1.</span> <span class="nav-text">MAC地址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ARP%EF%BC%9Aaddress-resolution-protocol"><span class="nav-number">6.6.2.</span> <span class="nav-text">ARP：address resolution protocol</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ethernet"><span class="nav-number">6.7.</span> <span class="nav-text">Ethernet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%A4%E6%8D%A2%E6%9C%BA"><span class="nav-number">6.8.</span> <span class="nav-text">交换机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%99%9A%E6%8B%9FLAN"><span class="nav-number">6.9.</span> <span class="nav-text">虚拟LAN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MPLS"><span class="nav-number">6.10.</span> <span class="nav-text">MPLS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E5%A4%87%E6%8E%A5%E5%85%A5%E5%9C%BA%E6%99%AF"><span class="nav-number">6.11.</span> <span class="nav-text">设备接入场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Chapter-7-%E6%97%A0%E7%BA%BF%E7%BD%91%E7%BB%9C"><span class="nav-number">7.</span> <span class="nav-text">Chapter 7 无线网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CDMA-%E7%A0%81%E5%88%86%E5%A4%8D%E7%94%A8"><span class="nav-number">7.1.</span> <span class="nav-text">CDMA 码分复用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSMA-CA"><span class="nav-number">7.2.</span> <span class="nav-text">CSMA&#x2F;CA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%9C%82%E7%AA%9D%E7%BD%91%E7%BB%9C"><span class="nav-number">7.3.</span> <span class="nav-text">蜂窝网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A7%BB%E5%8A%A8%E6%80%A7"><span class="nav-number">7.4.</span> <span class="nav-text">移动性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A7%BB%E5%8A%A8IP"><span class="nav-number">7.5.</span> <span class="nav-text">移动IP</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Riko"
+      src="/images/kasumi.png">
+  <p class="site-author-name" itemprop="name">Riko</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/RikoLi" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;RikoLi" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://lovelive.ws/" title="https:&#x2F;&#x2F;lovelive.ws&#x2F;" rel="noopener" target="_blank">μ's时光蛋</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://aqours.tv/" title="https:&#x2F;&#x2F;aqours.tv&#x2F;" rel="noopener" target="_blank">Aqours许愿瓶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liella.tv/" title="https:&#x2F;&#x2F;liella.tv&#x2F;" rel="noopener" target="_blank">Liella星象馆</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://rikoli.github.io/2019/06/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/kasumi.png">
+      <meta itemprop="name" content="Riko">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rikoの地下劇場">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          计算机网络期末复习
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-06-03 20:16:42" itemprop="dateCreated datePublished" datetime="2019-06-03T20:16:42+08:00">2019-06-03</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-02-05 20:51:21" itemprop="dateModified" datetime="2022-02-05T20:51:21+08:00">2022-02-05</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">网络</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>期末复习。</p>
+<span id="more"></span>
+
+<h2 id="Chapter-1-概述"><a href="#Chapter-1-概述" class="headerlink" title="Chapter 1 概述"></a>Chapter 1 概述</h2><h3 id="网络边缘"><a href="#网络边缘" class="headerlink" title="网络边缘"></a>网络边缘</h3><ul>
+<li>host</li>
+<li>server</li>
+</ul>
+<h3 id="接入方式"><a href="#接入方式" class="headerlink" title="接入方式"></a>接入方式</h3><ul>
+<li>DSL：网络、电话线共用一条线，各用户独立用各自的线</li>
+<li>电缆：各用户分享同一根线</li>
+</ul>
+<h3 id="传输"><a href="#传输" class="headerlink" title="传输"></a>传输</h3><ul>
+<li>transmission delay：数据包长度（比特）/传输速率，输入速率&gt;发送速率时数据包排队</li>
+<li>propagation delay：传输距离（物理）/介质中传输速率</li>
+</ul>
+<h3 id="连接方式"><a href="#连接方式" class="headerlink" title="连接方式"></a>连接方式</h3><p>主要在路由器之间体现：</p>
+<ul>
+<li>电路交换：路由器彼此之间有多条预留专线，不共享</li>
+<li>包交换（packet-switching）：路由器共享信道带宽</li>
+</ul>
+<h3 id="ISP-网络服务提供者"><a href="#ISP-网络服务提供者" class="headerlink" title="ISP 网络服务提供者"></a>ISP 网络服务提供者</h3><ul>
+<li>端系统（网络边缘/子网）需要接入ISP才能接入互联网。</li>
+<li>ISP互联：所有ISP通过中间一些路由器进行互联，起到降低连接复杂度的目的，避免每个ISP与其他所有都需要直接连接</li>
+</ul>
+<h3 id="延时"><a href="#延时" class="headerlink" title="延时"></a>延时</h3><p>（收到包后立刻）处理延时、在发送队列中等待延时、传输延时、传播延时。</p>
+<p>$$<br>d = d_{proc} + d_{queue} + d_{trans} + d_{prop}<br>$$</p>
+<p>队列等候延时随流量强度指数增长。</p>
+<h3 id="互联网协议栈"><a href="#互联网协议栈" class="headerlink" title="互联网协议栈"></a>互联网协议栈</h3><p>五层结构，只学习四层（无物理层）。</p>
+<table>
+<thead>
+<tr>
+<th>层</th>
+<th>处理数据类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>应用层</td>
+<td>message</td>
+</tr>
+<tr>
+<td>传输层</td>
+<td>segment</td>
+</tr>
+<tr>
+<td>网络层</td>
+<td>datagram</td>
+</tr>
+<tr>
+<td>传输层</td>
+<td>frame</td>
+</tr>
+</tbody></table>
+<p>逐层向下封装更多报头，数据变长。</p>
+<h2 id="Chapter-2-应用层"><a href="#Chapter-2-应用层" class="headerlink" title="Chapter 2 应用层"></a>Chapter 2 应用层</h2><h3 id="Socket"><a href="#Socket" class="headerlink" title="Socket"></a>Socket</h3><p>属于应用层，面向传输层的接口，将应用层message转换为传输层segment，用于网络位置不同的进程间通信。</p>
+<p>应用层应用的标识：IP地址+端口号，IP地址表示网络位置，端口号表示进程。</p>
+<h3 id="客户端-服务器架构"><a href="#客户端-服务器架构" class="headerlink" title="客户端-服务器架构"></a>客户端-服务器架构</h3><h4 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h4><ul>
+<li>使用client-server架构</li>
+<li>传输层使用TCP连接，端口80</li>
+</ul>
+<p>HTTP 请求：</p>
+<ul>
+<li>类型：GET，POST，…</li>
+<li>header</li>
+</ul>
+<p>HTTP 响应：</p>
+<ul>
+<li>状态行：HTTP协议号、连接状态</li>
+<li>header</li>
+<li>请求的数据</li>
+</ul>
+<p><strong>Cookies：</strong><br>保存状态，client首次向某服务器发送HTTP请求的时候，服务器创建cookie信息并随着HTTP响应返回给client，client本地保存cookie信息，下次请求同一个服务器的时候将携带cookie信息</p>
+<p><strong>Web cache、代理服务器：</strong><br>避免client与server进行直接通信。cache存储在代理服务器上，client请求origin server的时候，先请求cache所在代理服务器，若有缓存则直接返回数据；否则，代理服务器请求origin server，然后响应再返回给client。</p>
+<h4 id="SMTP"><a href="#SMTP" class="headerlink" title="SMTP"></a>SMTP</h4><p>用于电子邮件发送。</p>
+<p>组成：</p>
+<ul>
+<li>user agent：用户设备，向mail server发请求</li>
+<li>mail server：存储邮件，使用SMTP协议发送邮件</li>
+</ul>
+<p>先建立TCP连接，再发送信息，可靠传输。</p>
+<p>user agent和自己的mail server之间可以用HTTP或SMTP协议，mail server彼此间只能用SMTP协议。</p>
+<h4 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h4><p>域名解析，实现域名到IP地址的转换。分布式、层次化结构。</p>
+<ul>
+<li>顶级域名解析服务器（TLD）：解析.com, .org, .net, .uk, .jp, …等顶级域名的服务器</li>
+<li>权威DNS服务器：特定组织提供其特定域名的IP解析</li>
+<li>本地DNS服务器：存储了域名-IP地址翻译对（可能过期），加速解析过程，一般优先访问</li>
+</ul>
+<p>问询方式：</p>
+<ul>
+<li>iterated：优先问询local DNS，然后依次问询root DNS，TLD DNS，权威DNS，每一步都返回结果到local DNS</li>
+<li>recursive：优先问询local DNS，然后问询root DNS，再由root DNS问询TLD DNS，…每次向下一级DNS服务器问询，直到最后得到IP地址再递归返回</li>
+</ul>
+<p>DNS记录（RR）：</p>
+<ul>
+<li>name：域名</li>
+<li>value：对应IP</li>
+<li>type：解析类型，指定value的值</li>
+<li>ttl：记录缓存时间</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>type种类</th>
+<th>对应value类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A</td>
+<td>IP地址</td>
+</tr>
+<tr>
+<td>CNAME</td>
+<td>正式域名</td>
+</tr>
+<tr>
+<td>NS</td>
+<td>权威DNS解析服务器域名</td>
+</tr>
+<tr>
+<td>MX</td>
+<td>域名对应的邮件服务器域名</td>
+</tr>
+</tbody></table>
+<h3 id="P2P架构"><a href="#P2P架构" class="headerlink" title="P2P架构"></a>P2P架构</h3><h4 id="BT"><a href="#BT" class="headerlink" title="BT"></a>BT</h4><p>将文件分成多个chunks，参加BT下载的各用户之间互相传输chunks。</p>
+<p>组成：</p>
+<ul>
+<li>tracker：追踪torrent中每个用户的行为，管理新加入的用户</li>
+<li>torrent：记录了参加chunks传输的用户组</li>
+</ul>
+<p><strong>传输机制：</strong><br>请求：</p>
+<ul>
+<li>rarest-first：每个用户优先请求自己缺少的，其他人拥有最少的chunk</li>
+</ul>
+<p>发送：</p>
+<ul>
+<li>tit-for-tat：每10s，对接收速率排序，选择最快的4个用户发送chunk</li>
+<li>randomly-select：每30s，随机选一个用户发送chunk</li>
+</ul>
+<h3 id="CDN-内容分布网络"><a href="#CDN-内容分布网络" class="headerlink" title="CDN 内容分布网络"></a>CDN 内容分布网络</h3><p>提供了流媒体存储、服务的解决方案。</p>
+<p>流媒体被切分成小块，以不同码率编码存储，复制存储于多台物理位置不同的CDN服务器上。用户请求流媒体URL，由DNS直接解析到CDN的IP地址，请求CDN服务器，返回流媒体。流媒体传输中时刻检测网络状况，实时选择当前网络状况下最好质量编码的流媒体块进行传输（DASH）。</p>
+<h2 id="Chapter-3-传输层"><a href="#Chapter-3-传输层" class="headerlink" title="Chapter 3 传输层"></a>Chapter 3 传输层</h2><p>实现两个进程之间逻辑通信，将应用层message封装成segment。<br>Internet两种传输层协议：</p>
+<ul>
+<li>TCP：可靠传输</li>
+<li>UDP：不可靠传输</li>
+</ul>
+<h3 id="复用-amp-解复用"><a href="#复用-amp-解复用" class="headerlink" title="复用&amp;解复用"></a>复用&amp;解复用</h3><p>复用从多个socket得到多个message，封装成多个segment然后发送；解复用将收到的多个segment根据header内容解封装后分配到对应的socket（根据IP地址和端口号，端口号对应进程，IP地址对应host）。</p>
+<p>UDP解复用只通过<strong>源端口号</strong>和<strong>目的端口号</strong>确定segment被送到的socket。<br>TCP解复用通过<strong>源IP，目的IP，源端口号，目的端口号</strong>确定segment被送到的socket，允许一个端口同时接收多个来源的segment。</p>
+<h3 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h3><p>segment结构：</p>
+<ul>
+<li>32 bits每行</li>
+<li>源端口号，目标端口号</li>
+<li>UDP包长度，checksum</li>
+<li>应用层message</li>
+</ul>
+<p><strong>checksum</strong><br>发送方将segment每16bit分为一组二进制数，所有组相加（尾部进位）后取反填入checksum（初始checksum视为0），接收方同样方法计算（包括checksum的值）但相加后不取反，如果求和每位都是1说明没有出错。</p>
+<h3 id="可靠性传输"><a href="#可靠性传输" class="headerlink" title="可靠性传输"></a>可靠性传输</h3><p>重要思想：使用ACK、序号、计时器进行接收状态确认。</p>
+<p>pipelined protocols：允许<strong>多个数据包</strong>串行进行可靠传输，提高信道利用率。<br>两种基本pipelined protocols：</p>
+<ul>
+<li>GBN：go-back-n</li>
+<li>SR：selective repeat</li>
+</ul>
+<p><strong>GBN：</strong></p>
+<ul>
+<li>发送方有窗口</li>
+<li>cumulative计时器</li>
+<li>GBN每次因超时重新发送的都是整个窗口内的包，接收方回复当前已收到的最大有序包序号</li>
+<li>发送方接收到一个有序ACK，窗口移动一下，计时器重新为当前最老的包计时</li>
+<li>GBN的窗口是逐个数据包位移动的</li>
+</ul>
+<p><strong>SR：</strong></p>
+<ul>
+<li>收发都有窗口</li>
+<li>只重传没有接收到ACK的数据包</li>
+<li>接收方缓存失序的包</li>
+<li>每个包有自己的计时器</li>
+<li>收到什么包就回复什么包的ACK</li>
+<li>接收方向上层传递所有接收到的有序包，并移动接收窗口</li>
+</ul>
+<p><strong>TCP：</strong></p>
+<ul>
+<li>双工，同时传seq num和ACK</li>
+<li>timeout时间确定：大于RTT，RTT需要估计</li>
+<li>结合GBN和SR<ul>
+<li>用一个计时器记录最老的包，timeout重发整个发送窗口内所有的包（GBN性质）</li>
+<li>接收方缓存收到乱序的包</li>
+</ul>
+</li>
+<li>ACK为接收方需要的下一个seq num</li>
+<li>快重传：连续收到3个相同ACK之后，第4次接收到同样的ACK时立刻发送该包（timeout前就完成了重传，更快）</li>
+</ul>
+<h3 id="流控"><a href="#流控" class="headerlink" title="流控"></a>流控</h3><p>接收方有buffer，其中free buffer的大小成为rwnd，接收方回复ACK时带有rwnd信息，从而发送方可确定发送窗口大小以至于不会使接收方overflow。</p>
+<h3 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h3><p>建立：</p>
+<ol>
+<li>client发送SYN=1的请求</li>
+<li>server回复SYN=1的ACK</li>
+<li>client回复ACK，此时可携带数据，连接建立</li>
+</ol>
+<p>断开：</p>
+<ol>
+<li>client发送FIN=1请求</li>
+<li>server回复ACK，此时还能携带数据</li>
+<li>server发送FIN=1，断开连接，此时不再携带数据</li>
+</ol>
+<h3 id="拥塞控制"><a href="#拥塞控制" class="headerlink" title="拥塞控制"></a>拥塞控制</h3><p>根据超时、重复ACK情况自动控制发送窗口的大小。</p>
+<ul>
+<li>原则：加性增长，乘性衰减。</li>
+<li>发送方：接收到连续ACK就将cwnd（发送窗口）size+1，检测到丢包就减半。</li>
+<li>MSS：一个数据包在cwnd中占位。</li>
+</ul>
+<p><strong>slow start：</strong></p>
+<ul>
+<li>每次收到一个有序ACK，cwnd size+1，一个RTT下来翻倍</li>
+<li>若timeout，阈值减半，size设为1，开始新的slow start至阈值后线性增长</li>
+<li>若3次重复ACK，阈值减半，size减半然后线性增长</li>
+<li>阈值初始值为初始cwnd size一半</li>
+</ul>
+<p>阈值为指数增长和线性增长的分界点。</p>
+<h3 id="ECN-显式拥塞提示"><a href="#ECN-显式拥塞提示" class="headerlink" title="ECN 显式拥塞提示"></a>ECN 显式拥塞提示</h3><p>发送方发送报文，IP数据包中2 bit ECN位记录网络的拥堵情况，ECN由路由器填写；接收方得到报文后根据ECN位决定返回的ACK中ECE位是否为1，若为1说明有拥堵。</p>
+<h2 id="Chapter-4-网络层：数据平面"><a href="#Chapter-4-网络层：数据平面" class="headerlink" title="Chapter 4 网络层：数据平面"></a>Chapter 4 网络层：数据平面</h2><p>网络层为路由器之间的通信协议，格式为IP datagram。</p>
+<p>网络层功能：</p>
+<ul>
+<li>转发：路由器确定输入datagram从哪个口送出</li>
+<li>路由：确定从发送地到目的地的路径</li>
+</ul>
+<h3 id="路由器架构"><a href="#路由器架构" class="headerlink" title="路由器架构"></a>路由器架构</h3><ul>
+<li>输入、输出缓存</li>
+<li>交换核心：memory，bus，crossbar</li>
+<li>转发表：最长前缀匹配</li>
+</ul>
+<p>输入队列在核心处理速度低时暂时缓存输入数据，但是会造成HOL阻塞问题，多个输入队列数据同时传向一个输出端口，导致碰撞。</p>
+<p>解决HOL：输出队列。输出队列提供了缓存，发生碰撞的数据包可以缓存在队列中等待输出。</p>
+<p>输出队列调度：</p>
+<ul>
+<li>优先：根据数据包优先级将数据包缓存到不同的输出队列中，只要高优先级队列不空，优先输出高优先级队列中的包</li>
+<li>轮询：循环扫描每个队列，每个队列发送一个包；也可分配权重，循环中重点发送某个队列</li>
+</ul>
+<h3 id="IP协议"><a href="#IP协议" class="headerlink" title="IP协议"></a>IP协议</h3><ul>
+<li>一行32 bit</li>
+<li>TCP头20 byte，IP头20 byte</li>
+</ul>
+<p>IP包分割：<br>链路有MTU限制，因此要将整个IP包分割成小包发送，在目的地重组。<br>分割标准：</p>
+<ul>
+<li>只对有效数据进行切割</li>
+<li>length：包长度，上限为MTU，一般为1500，包括20byte包头，因此有效数据长度为1480</li>
+<li>offset：相对于原大数据包有效数据起始位的偏移量，为偏移字节数除以8</li>
+<li>flag：表示当前包是否为切分的小数据包</li>
+</ul>
+<h3 id="DHCP"><a href="#DHCP" class="headerlink" title="DHCP"></a>DHCP</h3><p>获取IP地址的协议。</p>
+<p>流程：</p>
+<ol>
+<li>client向广播地址255.255.255.255发送DHCP请求</li>
+<li>DHCP服务器接收请求，返回IP地址</li>
+<li>client接收IP地址，确认接收IP地址</li>
+<li>DHCP服务器回复确认接收IP地址</li>
+</ol>
+<p>全程在广播地址上进行通信。</p>
+<h3 id="NAT-网络地址转换"><a href="#NAT-网络地址转换" class="headerlink" title="NAT 网络地址转换"></a>NAT 网络地址转换</h3><p>子网内部可以自行分配地址，节约了IP地址的使用。</p>
+<p>与外网有映射关系：</p>
+<ul>
+<li>子网内新IP对应外网相同IP不同端口号</li>
+<li>在网关处进行地址转换</li>
+</ul>
+<h3 id="IPv6"><a href="#IPv6" class="headerlink" title="IPv6"></a>IPv6</h3><p>出现原因：IPv4地址将耗尽、加速处理/转发</p>
+<p>特点：</p>
+<ul>
+<li>固定40byte包头</li>
+<li>不进行包切割</li>
+<li>去掉checksum</li>
+</ul>
+<p>隧道：IPv6包遇到只能处理IPv4的路由器时外部包装一层IPv4头。</p>
+<h2 id="Chapter-5-网络层：控制平面"><a href="#Chapter-5-网络层：控制平面" class="headerlink" title="Chapter 5 网络层：控制平面"></a>Chapter 5 网络层：控制平面</h2><h3 id="路由协议"><a href="#路由协议" class="headerlink" title="路由协议"></a>路由协议</h3><p><strong>link state：</strong><br>路由网络拓扑关系已知，全局算法。用Dijkstra。</p>
+<p>多轮迭代，第一轮计算起点到所有其他点的距离，以及到这些点前一个点是什么，然后挑出距离最短的点加入队列，接下来反复计算队列内的点距哪个点最近（从起点出发），重复将每一轮最近的点加入队列，直到全部点都加入队列，反向遍历加入点的顺序就是最短路径。</p>
+<p><strong>distance vector：</strong><br>分布式算法，基于Bellman-Ford Equation：</p>
+<p>$$<br>d_x(y) = \min_v{c(x,v)+d_v(y)}<br>$$</p>
+<p>distance vector表示当前点到目标点的最短距离。</p>
+<p>每个路由器存储自身转发到每个邻居的cost，以及邻居的distance vector，如果连接状态改变，相邻的路由器彼此发送自己到终点的新距离估计，并用Bellman方程进行distance vector的更新。</p>
+<h3 id="自治系统"><a href="#自治系统" class="headerlink" title="自治系统"></a>自治系统</h3><p>地址太多，路由表过于庞大，不适合频繁转发交换，因此提出自治系统（AS），整个网络划分为多个AS，每个AS内只控制自己的路由。</p>
+<p>两种路由：</p>
+<ul>
+<li>intra-AS：一个AS内部的路由，协议必须一致</li>
+<li>inter-AS：不同AS之间的路由</li>
+</ul>
+<p>OSPF：一个intra-AS路由协议实例，在一个AS内使用link state路由方式，每个路由器存储整个AS的拓扑表。</p>
+<p>BGP：一个inter-AS路由协议实例，有两部分</p>
+<ul>
+<li>eBGP：从相邻AS收集可达性信息</li>
+<li>iBGP：将可达性在整个AS内传播</li>
+</ul>
+<p>BGP传播两个重要属性：</p>
+<ul>
+<li>AS-PATH：到目的地经过的每个AS</li>
+<li>NEXT-HOP：通知AS内路由器下一个AS是哪里</li>
+</ul>
+<p>gateway router在收到多条至同一目的地的eBGP消息时会做选择，选最优的一条使用iBGP在AS内传播。</p>
+<ul>
+<li>选择最短的AS-PATH</li>
+<li>选择最近（hop次数最少）的NEXT-HOP（hot potato routing）</li>
+</ul>
+<h3 id="ICMP"><a href="#ICMP" class="headerlink" title="ICMP"></a>ICMP</h3><p>用于host与router通信交换网络情况。</p>
+<h2 id="Chapter-6-链路层"><a href="#Chapter-6-链路层" class="headerlink" title="Chapter 6 链路层"></a>Chapter 6 链路层</h2><h3 id="服务"><a href="#服务" class="headerlink" title="服务"></a>服务</h3><ul>
+<li>链路层提供相邻两个网络设备端口之间的通信服务，使用MAC地址导向。</li>
+<li>有自己独特的报文头</li>
+<li>使用Ethernet协议</li>
+</ul>
+<h3 id="实现设备"><a href="#实现设备" class="headerlink" title="实现设备"></a>实现设备</h3><p>Adaptor/NIC 网卡。</p>
+<h3 id="错误检测"><a href="#错误检测" class="headerlink" title="错误检测"></a>错误检测</h3><h4 id="奇偶校验"><a href="#奇偶校验" class="headerlink" title="奇偶校验"></a>奇偶校验</h4><ul>
+<li>数据位</li>
+<li>校验位</li>
+<li>分为奇校验/偶校验，通过改变校验位使所有数据位上共有奇数/偶数个1实现</li>
+<li>收发双方1的总数奇偶性改变，则认为出错</li>
+</ul>
+<h4 id="CRC校验"><a href="#CRC校验" class="headerlink" title="CRC校验"></a>CRC校验</h4><p>循环冗余校验。</p>
+<p>三个量：</p>
+<ul>
+<li>数据D</li>
+<li>生成串G，r比特</li>
+<li>冗余串R，r-1比特</li>
+</ul>
+<p>收发双方公认一个二进制串G，共r位。发送方将D左移r位，然后模二除G，得到r-1位余数R，追加在D之后发送。</p>
+<p>接收方重复模二除法的操作计算余数R，与发送过来的R比较，若不一致，则认为出错。</p>
+<h3 id="多接入协议"><a href="#多接入协议" class="headerlink" title="多接入协议"></a>多接入协议</h3><ul>
+<li>出现场合：使用广播的链路结构，存在共享的总线</li>
+<li>问题：共用总线通信，出现数据传输冲突</li>
+</ul>
+<h3 id="解决途径"><a href="#解决途径" class="headerlink" title="解决途径"></a>解决途径</h3><ul>
+<li>信道分配</li>
+<li>随机访问</li>
+<li>轮流访问</li>
+</ul>
+<h4 id="信道分配-channel-partitionning"><a href="#信道分配-channel-partitionning" class="headerlink" title="信道分配 channel partitionning"></a>信道分配 channel partitionning</h4><p>将信道资源分给多接入者，共享。</p>
+<p><strong>TDMA时分复用</strong><br>时间上分成多个等长的slot，每个slot内为每个用户分配相等的使用时长，用户在时长内有消息就发送，没有就等待。</p>
+<p><strong>FDMA频分复用</strong><br>在频率域上划分出slot，每个用户使用一个频段进行发送。</p>
+<h4 id="随机访问-random-access"><a href="#随机访问-random-access" class="headerlink" title="随机访问 random access"></a>随机访问 random access</h4><p>每次将全部信道资源划分给一个用户使用，随机独享。</p>
+<p><strong>slotted ALOHA</strong><br>将时间分成等长的slot，消息只能在slot开始的时刻开始发送，每个用户在时间上同步，仅在slot开始时才有资格发送消息。</p>
+<p>如果多个用户同时发送，则全部发送失败，等待下个slot开始重新发送。直到某个slot仅有一个用户发送，发送成功。</p>
+<p>效率低。</p>
+<p><strong>pure ALOHA</strong><br>去掉了slot的划分，每个用户任何时刻都可以发送消息。增大了冲突概率。</p>
+<p>效率更低。</p>
+<p><strong>CSMA</strong><br>发送前监听一下目前链路状态，是否空闲可以发送；若空闲则发送，否则延迟发送。监听后如果发送则持续发送，不会中止。</p>
+<p>由于监听的消息存在传播延时，导致监听结果虽然为空闲，但在传输回来的途中链路又被占用了，仍导致冲突。</p>
+<p><strong>CSMA/CD</strong><br>加入冲突检测（collision detection）实现监听。检测链路上的信号强度，与发送/接收信号强度比较，确定链路是否空闲。更短时间实现链路状态监听，若发现冲突，立刻停止发送，减少链路资源浪费。</p>
+<p>区别于普通CSMA的持续发送，CSMA/CD发送中监测到冲突后立刻停止发送。</p>
+<p>Ethernet下CSMA/CD算法流程：</p>
+<ol>
+<li>NIC创建Ethernet帧</li>
+<li>监听链路状态，当空闲时开始发送</li>
+<li>如果发送中监测到冲突，立刻中止发送</li>
+<li>发生m次冲突后，NIC从0~2^m^-1中随机选择一个K，等待K×512bit时间之后回到第二步</li>
+</ol>
+<h4 id="轮流访问-taking-turns"><a href="#轮流访问-taking-turns" class="headerlink" title="轮流访问 taking turns"></a>轮流访问 taking turns</h4><p>在共享链路和随机访问之间谋取tradeoff。</p>
+<p><strong>polling</strong><br>通过链路中一个master设备进行polling，轮流邀请其他设备进行通信。</p>
+<p><strong>token passing</strong><br>在所有设备间轮流传递token，拥有token的设备允许进行通信。</p>
+<h3 id="局域网"><a href="#局域网" class="headerlink" title="局域网"></a>局域网</h3><h4 id="MAC地址"><a href="#MAC地址" class="headerlink" title="MAC地址"></a>MAC地址</h4><p>用于局域网内链路层通信。是上层所有通信的实现。</p>
+<ul>
+<li>48位二进制，记为六组2位16进制数</li>
+<li>每个网卡MAC地址唯一</li>
+</ul>
+<h4 id="ARP：address-resolution-protocol"><a href="#ARP：address-resolution-protocol" class="headerlink" title="ARP：address resolution protocol"></a>ARP：address resolution protocol</h4><p>使用IP地址解析MAC地址。局域网内部有ARP表，记录IP地址和MAC地址转换关系。</p>
+<p><strong>Q：</strong>为什么要用IP解析MAC地址？<br><strong>A：</strong>链路层通信需要目标MAC地址，网络层向下只能传递目标IP地址。</p>
+<p>ARP由发出者向广播MAC地址FF-FF-FF-FF-FF-FF问询，全部局域网内设备都能收到；目标设备回复发出者自己的MAC地址，发出者更新ARP转换表。</p>
+<p>若出现跨域（不同局域网内的设备）通信，发信者先将报文发送到网关（第一跳路由器），然后由网关转发至其他局域网。局域网内链路层通信，局域网间网络层通信。</p>
+<h3 id="Ethernet"><a href="#Ethernet" class="headerlink" title="Ethernet"></a>Ethernet</h3><p>连接拓扑：</p>
+<ul>
+<li>总线：无交换机</li>
+<li>星型：有交换机</li>
+</ul>
+<p>Ethernet帧结构：</p>
+<ul>
+<li>源MAC地址</li>
+<li>目标MAC地址</li>
+<li>上层网络层协议</li>
+<li>数据负载</li>
+<li>CRC校验码</li>
+</ul>
+<h3 id="交换机"><a href="#交换机" class="headerlink" title="交换机"></a>交换机</h3><p>实现链路层帧的转发，类比路由器实现网络层数据包转发。同时多线通信，无冲突，全双工。</p>
+<p>类比路由表，交换机有交换表。</p>
+<p>交换机获得交换表过程：</p>
+<ol>
+<li>发送帧进入交换机，交换机<strong>反向学习</strong>得到输入方MAC地址对应的交换机端口，及记录TTL</li>
+<li>查交换表，若发现目的MAC地址对应端口，直接转发至端口；否则向所有端口<strong>广播</strong>（flood）</li>
+</ol>
+<p>反复进行上述过程动态维护交换表。</p>
+<h3 id="虚拟LAN"><a href="#虚拟LAN" class="headerlink" title="虚拟LAN"></a>虚拟LAN</h3><p>通过交换机端口分配实现虚拟局域网。同时虚拟出了一个路由器隔离两个局域网。同个虚拟LAN内视为通过虚拟交换机互联，不同虚拟LAN之间通过一个虚拟路由器互联。</p>
+<h3 id="MPLS"><a href="#MPLS" class="headerlink" title="MPLS"></a>MPLS</h3><p>使用IP的普通路由器仅根据目的地址确定转发线路，使用MPLS的路由器同时使用源地址和目的地址确定转发线路。使用label进行标记，根据label选择不同的转发线路。</p>
+<h3 id="设备接入场景"><a href="#设备接入场景" class="headerlink" title="设备接入场景"></a>设备接入场景</h3><ol>
+<li>接入网络，DHCP（链路层在广播地址上广播）请求IP地址，DNS服务器地址，网关地址</li>
+<li>DNS请求，先运行ARP获取DNS服务器MAC地址，然后发送请求，获得目标IP地址</li>
+<li>建立TCP连接（3次握手）</li>
+<li>发送HTTP请求，接收HTTP回复</li>
+</ol>
+<h2 id="Chapter-7-无线网络"><a href="#Chapter-7-无线网络" class="headerlink" title="Chapter 7 无线网络"></a>Chapter 7 无线网络</h2><h3 id="CDMA-码分复用"><a href="#CDMA-码分复用" class="headerlink" title="CDMA 码分复用"></a>CDMA 码分复用</h3><p>允许多用户同时使用多频段通信，彼此编码方式不同。</p>
+<ul>
+<li>编码：发送序列×chipping序列</li>
+<li>解码：接受序列×chipping序列</li>
+</ul>
+<p>不同用户使用不同chipping序列。</p>
+<h3 id="CSMA-CA"><a href="#CSMA-CA" class="headerlink" title="CSMA/CA"></a>CSMA/CA</h3><ul>
+<li><p>collision avoidance机制：发送前监听DIFS时间，无其他用户发送时才发送；接收方收到后等待SIFS时间然后回复ACK。ACK用来解决hidden terminal问题。</p>
+</li>
+<li><p>reserve机制：发送方首先发送RTS（request-to-send）通知接收方自己要发送数据，接收方收到后广播CTS（clear-to-send），之后发送方发送数据，其他发送方等待。</p>
+</li>
+</ul>
+<p>使用reserve机制的CSMA/CA：</p>
+<ol>
+<li>发送方等待DIFS，发送RTS</li>
+<li>接收方回复CTS，发送方发送数据，其他方等待</li>
+<li>发送完成，接收方回复ACK</li>
+</ol>
+<h3 id="蜂窝网络"><a href="#蜂窝网络" class="headerlink" title="蜂窝网络"></a>蜂窝网络</h3><p>构成：</p>
+<ul>
+<li>基站</li>
+<li>MSC</li>
+</ul>
+<p>用户设备与基站无线连接，使用CDMA复用。</p>
+<p><strong>架构：</strong></p>
+<ul>
+<li>2G：仅传输语音信号，基站-BSC-MSC-GatewayMSC-电话网络…</li>
+<li>3G：语音+数据（Internet），并行，基站-radio network controller-MSC/SGSN-GatewayMSC/GGSN-电话网络/Internet…</li>
+<li>4G-LTE：全部使用Internet，基站-SGW-PGW-Internet…</li>
+</ul>
+<h3 id="移动性"><a href="#移动性" class="headerlink" title="移动性"></a>移动性</h3><p>如何确定移动设备的网络位置？</p>
+<p>定义：</p>
+<ul>
+<li>home agent：归属代理，表示移动设备的归属，是地址管理设备</li>
+<li>foreign agent：外部代理，管理移动设备的外部位置</li>
+<li>correspondent：通信者，希望与移动设备取得联系的设备</li>
+<li>permanent address：永久地址，即移动设备在归属网络（家）中的地址</li>
+<li>care-of address：转交地址，移动设备在新网络子网中的地址，一般对应外部代理的地址</li>
+</ul>
+<p>registration：移动设备进入新网络，与foreign agent连接，foreign agent向home agent发送信息，home agent知道设备的新网络位置。（向家通知暂住地位置）</p>
+<p>间接路由选择：通信者向永久地址发送数据，归属代理将数据转发至外部代理，从而转交给移动设备。</p>
+<p>直接路由选择：通信者向永久地址发送数据，归属代理返回移动设备的转交地址，通信者直接向转交地址发送数据。</p>
+<h3 id="移动IP"><a href="#移动IP" class="headerlink" title="移动IP"></a>移动IP</h3><p>在IP包中增加了新内容：</p>
+<ul>
+<li>H，F位：表明是home agent还是foreign agent</li>
+<li>R位：表示是否需要registration</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/06/01/6-1%E4%B9%8B%E5%90%8E%E8%A6%81%E5%81%9A%E7%9A%84%E4%BA%8B/" rel="prev" title="6.1之后要做的事">
+                  <i class="fa fa-chevron-left"></i> 6.1之后要做的事
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/07/06/2019-Summer-Vacation/" rel="next" title="2019 Summer Vacation">
+                  2019 Summer Vacation <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Riko</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/kasumi-apple-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/kasumi-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/kasumi-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Helvetica:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"rikoli.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.8.1","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="数据结构基础学习笔记。 参考书目：Data Structures and Algorithm Analysis in C, 2nd edition, Mark Allen Weiss">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Data Structure Notes">
+<meta property="og:url" content="https://rikoli.github.io/2019/09/14/Data-Structure-Notes/index.html">
+<meta property="og:site_name" content="Rikoの地下劇場">
+<meta property="og:description" content="数据结构基础学习笔记。 参考书目：Data Structures and Algorithm Analysis in C, 2nd edition, Mark Allen Weiss">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-09-14T01:57:52.000Z">
+<meta property="article:modified_time" content="2022-02-05T12:53:43.827Z">
+<meta property="article:author" content="Riko">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://rikoli.github.io/2019/09/14/Data-Structure-Notes/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://rikoli.github.io/2019/09/14/Data-Structure-Notes/","path":"2019/09/14/Data-Structure-Notes/","title":"Data Structure Notes"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Data Structure Notes | Rikoの地下劇場</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Rikoの地下劇場</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">日日精进</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A1%A8%E3%80%81%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97"><span class="nav-number">1.</span> <span class="nav-text">表、栈与队列</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A8"><span class="nav-number">1.1.</span> <span class="nav-text">表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E8%A1%A8%E5%A4%B4"><span class="nav-number">1.1.1.</span> <span class="nav-text">关于表头</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%92%E5%85%A5-%E5%88%A0%E9%99%A4%E6%93%8D%E4%BD%9C%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84"><span class="nav-number">1.1.2.</span> <span class="nav-text">插入&#x2F;删除操作需要注意的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">1.1.3.</span> <span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9B%B4%E5%A4%9A%E6%A0%B7%E5%BC%8F%E7%9A%84%E8%A1%A8"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">更多样式的表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A1%B6%E6%8E%92%E5%BA%8F-amp-%E5%9F%BA%E6%95%B0%E6%8E%92%E5%BA%8F"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">桶排序&amp;基数排序</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%88"><span class="nav-number">1.2.</span> <span class="nav-text">栈</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E6%A0%88"><span class="nav-number">1.2.1.</span> <span class="nav-text">用数组实现栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E9%93%BE%E8%A1%A8%E5%AE%9E%E7%8E%B0%E6%A0%88"><span class="nav-number">1.2.2.</span> <span class="nav-text">用链表实现栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E4%BE%8B%E5%AD%90"><span class="nav-number">1.2.3.</span> <span class="nav-text">一个例子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%98%9F%E5%88%97"><span class="nav-number">1.3.</span> <span class="nav-text">队列</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97"><span class="nav-number">1.3.1.</span> <span class="nav-text">用数组实现队列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E9%93%BE%E8%A1%A8%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97"><span class="nav-number">1.3.2.</span> <span class="nav-text">用链表实现队列</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A0%91"><span class="nav-number">2.</span> <span class="nav-text">树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%8F%E8%BF%B0%E4%B8%80%E6%A3%B5%E9%80%9A%E5%B8%B8%E7%9A%84%E6%A0%91"><span class="nav-number">2.1.</span> <span class="nav-text">描述一棵通常的树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">2.2.</span> <span class="nav-text">二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE%E6%A0%91"><span class="nav-number">2.2.1.</span> <span class="nav-text">二叉查找树</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2%E4%B8%8E%E6%8F%92%E5%85%A5"><span class="nav-number">2.2.1.2.</span> <span class="nav-text">搜索与插入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A0%E9%99%A4"><span class="nav-number">2.2.1.3.</span> <span class="nav-text">删除</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AVL%E6%A0%91"><span class="nav-number">2.2.2.</span> <span class="nav-text">AVL树</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#AVL%E6%A0%91%E7%9A%84%E6%97%8B%E8%BD%AC"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">AVL树的旋转</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%B8%E5%B1%95%E6%A0%91"><span class="nav-number">2.2.3.</span> <span class="nav-text">伸展树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86"><span class="nav-number">2.2.4.</span> <span class="nav-text">树的遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Huffman%E6%A0%91"><span class="nav-number">2.2.5.</span> <span class="nav-text">Huffman树</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.2.5.1.</span> <span class="nav-text">实现</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%BE"><span class="nav-number">3.</span> <span class="nav-text">图</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E5%AE%9A%E4%B9%89"><span class="nav-number">3.1.</span> <span class="nav-text">一些定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A8%E7%A4%BA"><span class="nav-number">3.2.</span> <span class="nav-text">表示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%AE%97%E6%B3%95"><span class="nav-number">3.3.</span> <span class="nav-text">基本算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%81%8D%E5%8E%86"><span class="nav-number">3.3.1.</span> <span class="nav-text">遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84"><span class="nav-number">3.3.2.</span> <span class="nav-text">最短路径</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Motivation"><span class="nav-number">3.3.2.1.</span> <span class="nav-text">Motivation</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E5%A4%A7%E6%B5%81"><span class="nav-number">3.3.3.</span> <span class="nav-text">最大流</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Riko"
+      src="/images/kasumi.png">
+  <p class="site-author-name" itemprop="name">Riko</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/RikoLi" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;RikoLi" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://lovelive.ws/" title="https:&#x2F;&#x2F;lovelive.ws&#x2F;" rel="noopener" target="_blank">μ's时光蛋</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://aqours.tv/" title="https:&#x2F;&#x2F;aqours.tv&#x2F;" rel="noopener" target="_blank">Aqours许愿瓶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liella.tv/" title="https:&#x2F;&#x2F;liella.tv&#x2F;" rel="noopener" target="_blank">Liella星象馆</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://rikoli.github.io/2019/09/14/Data-Structure-Notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/kasumi.png">
+      <meta itemprop="name" content="Riko">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rikoの地下劇場">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Data Structure Notes
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-09-14 09:57:52" itemprop="dateCreated datePublished" datetime="2019-09-14T09:57:52+08:00">2019-09-14</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-02-05 20:53:43" itemprop="dateModified" datetime="2022-02-05T20:53:43+08:00">2022-02-05</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">编程</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>数据结构基础学习笔记。</p>
+<p>参考书目：<em>Data Structures and Algorithm Analysis in C, 2nd edition, Mark Allen Weiss</em></p>
+<span id="more"></span>
+
+<h1 id="表、栈与队列"><a href="#表、栈与队列" class="headerlink" title="表、栈与队列"></a>表、栈与队列</h1><h2 id="表"><a href="#表" class="headerlink" title="表"></a>表</h2><p>表是一种线性数据结构，描述元素间的先后关系，每个元素拥有唯一的上一个相关元素和下一个相关元素。它是基础的数据结构，可以用来实现后面的栈与队列。</p>
+<p>一个表涉及到的操作应有：</p>
+<ul>
+<li>新建空表init</li>
+<li>在指定位置插入新节点insert</li>
+<li>删除指定位置节点delete</li>
+<li>遍历链表/寻找指定元素find</li>
+</ul>
+<p>我们可以使用数组来实现一个表，但是通常不这样做。对于C来说，数组初始化需要已知数组大小，若不清楚则需要留出足够大的空间，这是对存储空间的浪费；此外在进行插入和删除工作时较为麻烦：需要将指定位置之后的全部元素后移或前移一个位置。</p>
+<p>使用链表进行表结构的描述是合适的，其主要特点是使用非连续内存空间进行表的保存，在插入/删除新节点时不必移动其他节点位置，并实现了动态特性，使表的大小可以动态调整。</p>
+<p>链表节点可以描述如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    ParamType param; <span class="comment">// Any parameter you want ...</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Node</span> *<span class="title">next</span>;</span>  <span class="comment">// Pointer to next node</span></span><br><span class="line">&#125; Node;</span><br></pre></td></tr></table></figure>
+
+<h3 id="关于表头"><a href="#关于表头" class="headerlink" title="关于表头"></a>关于表头</h3><p>表头是一种结构上的设计，对数据本身没有含义。表头的使用使得一些操作（如涉及到改变一个节点位置的操作）更加方便，是否使用根据使用者的喜好而定。</p>
+<p>我认为还是使用表头为好。一个表起始于表头节点，终止于空地址NULL，有始有终，结构清晰。</p>
+<h3 id="插入-删除操作需要注意的"><a href="#插入-删除操作需要注意的" class="headerlink" title="插入/删除操作需要注意的"></a>插入/删除操作需要注意的</h3><p>插入操作时需要注意先让新节点指向它的下一个节点，在将前一个节点指向它，否则链表会中断。</p>
+<p>类似的，删除时先将被删除节点的前一个节点连接到其后一个节点，再释放到被删除节点的内存。</p>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><h4 id="更多样式的表"><a href="#更多样式的表" class="headerlink" title="更多样式的表"></a>更多样式的表</h4><p>表的结构不限于传统单向结构，可以向节点中增加指向前一个节点的指针构造双向链表；可以向末节点增加指向头节点的指针构造循环链表；可以使用多重表构造二维结构等等…</p>
+<h4 id="桶排序-amp-基数排序"><a href="#桶排序-amp-基数排序" class="headerlink" title="桶排序&amp;基数排序"></a>桶排序&amp;基数排序</h4><p>桶排序是一种简单的整数排序方式，需要已知整数范围。假设有$N$个整数，范围从$0~M-1$，顺序任意，桶排序过程如下：</p>
+<ol>
+<li>建立$M$个“桶”，如长度为$M$的数组<code>bucket</code></li>
+<li>遍历$N$个整数，将整数$i$送入对应的“桶”<code>bucket[i]</code></li>
+<li>遍历<code>bucket</code>得到的就是有序的$N$个整数</li>
+</ol>
+<p>应用中如果$M$范围较大，新建$M$个桶是浪费的，可以每次以一位进行桶排序，直到所有位都完成，这就是基数排序。如，对十进制整数，可以以10为基数，依次对个、十、百、千…数位进行桶排序。</p>
+<p>基数排序的实现过程中可以使用链表。这是因为对每位进行桶排序的时候，每个桶里可能不只有一个数，此时需要按照入桶的先后顺序以链表组织一个桶里的所有数。</p>
+<h2 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h2><p>栈是LIFO类型的结构，可用来实现一些依赖中间结果的数据调度工作。对于一个栈可以进行的操作为：</p>
+<ul>
+<li>pop操作：弹出栈顶元素</li>
+<li>push操作：将新元素压入栈</li>
+</ul>
+<p>栈可以通过数组或链表来实现。</p>
+<h3 id="用数组实现栈"><a href="#用数组实现栈" class="headerlink" title="用数组实现栈"></a>用数组实现栈</h3><p>先来说数组实现。我们需要一个变量<code>top</code>来指示栈顶位置，即对应数组单元的序号。</p>
+<ul>
+<li>初始化：新建数组<code>stack</code>，<code>top</code>置为-1</li>
+<li>入栈：<code>stack[++top] = new_element</code></li>
+<li>出栈：<code>return stack[top--]</code></li>
+</ul>
+<p>数组实现栈的时候要规定最大栈容量防止溢出。</p>
+<h3 id="用链表实现栈"><a href="#用链表实现栈" class="headerlink" title="用链表实现栈"></a>用链表实现栈</h3><p>用链表实现栈不用考虑初始化最大栈容量。入栈只需在链表尾部增加一个节点，出栈则返回链表尾部节点值后将其内存释放。如果使用双向链表，进行pop操作的时候很简单就能更新栈顶地址，但是如果是单向链表，必须花费$O(N)$的时间找到链表尾部前一个地址，将其设置为栈顶。</p>
+<p>所以，如果使用单向链表的话，栈顶应该指示链表头部，每次在链表头部前增加一个新节点进行push，或者将头部更换为下一个节点进行pop。</p>
+<p>链表实现栈不需要规定最大栈容量并不意味着栈可以一直大下去。当内存空间耗尽无法再分配新节点空间时会出现错误。当然在设计合理的情况下一般也不会出现这种情况。</p>
+<h3 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h3><p>栈可以实现简单的计算器。假设我们有一个表达式<code>3 + 5 * 2 - 8 / 4</code>，如何在符合运算优先级的情况下计算正确答案<code>11</code>？</p>
+<p>我们用到两个栈<code>ns</code>和<code>os</code>，分别寄存操作数number和运算符operator。按顺序遍历表达式，遇到操作数压入<code>ns</code>，遇到运算符压入<code>os</code>。如果新遇到的运算符优先度比<code>os</code>栈顶优先度低，则弹出<code>os</code>栈顶运算符以及<code>ns</code>顶部两个数进行运算，结果压入<code>ns</code>，再将新运算符压入<code>os</code>。反复进行直至表达式遍历完成，之后依次弹出<code>os</code>栈顶与<code>ns</code>顶部两个数进行运算，结果压入<code>ns</code>，直到<code>os</code>为空，此时<code>ns</code>中只剩最终计算结果，将其弹出。</p>
+<p><strong>注意：在<code>os</code>依次弹出进行运算的时候，如果遇到次栈顶运算符为减号，要考虑变号的问题！</strong></p>
+<h2 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h2><p>队列是典型FIFO结构，实现先进先出的调度。同样的，队列可以使用数组和链表实现。</p>
+<h3 id="用数组实现队列"><a href="#用数组实现队列" class="headerlink" title="用数组实现队列"></a>用数组实现队列</h3><p>我们需要构造一个队列结构，有以下要素：</p>
+<ul>
+<li>size：队列长度</li>
+<li>front：队头序号</li>
+<li>rear：队尾序号</li>
+</ul>
+<p>同样，用数组实现队列的时候也要设计最大队列容量。</p>
+<ul>
+<li>初始化：新建数组<code>queue</code>，<code>size = 0</code>，<code>front = 1</code>，<code>rear = 0</code></li>
+<li>入队：<code>size += 1</code>，<code>queue[++rear] = new_element</code></li>
+<li>出队：<code>size -= 1</code>，<code>return queue[front++]</code></li>
+</ul>
+<p><code>size</code>的使用不是必须的，不过最好使用<code>size</code>显式判断队列何时为空，何时为满。</p>
+<p>队头/尾移动到数组尾端时可以让其回到开头，以循环数组的方式继续模拟队列。使用循环数组时对队列是否为空的检验很重要。</p>
+<h3 id="用链表实现队列"><a href="#用链表实现队列" class="headerlink" title="用链表实现队列"></a>用链表实现队列</h3><p>一下子变得简单了很多。无需提前确定最大队列容量，入队时向链表尾部加入新节点，出队时返回头节点的下一个节点值后将其释放，注意<strong>不是释放头节点！</strong></p>
+<h1 id="树"><a href="#树" class="headerlink" title="树"></a>树</h1><p>树可以说是运用最广泛与最重要的结构了。树描述数据间的层次关系，每个节点有且仅有一个父节点，但可以拥有任意数量子节点。</p>
+<p>几个属性：</p>
+<ul>
+<li>深度：从根节点开始到指定节点的路径长</li>
+<li>高度：从指定节点开始到达其子树中最远叶节点的路径长</li>
+</ul>
+<h2 id="描述一棵通常的树"><a href="#描述一棵通常的树" class="headerlink" title="描述一棵通常的树"></a>描述一棵通常的树</h2><p>很自然，我们可以定义树中每个节点，使用指针表示节点间的联系。但是有个问题：对于一棵通常的树而言，其子节点数量是不确定的，直接定义指向每个子节点的指针无法程序化进行。</p>
+<p>为解决该问题，我们使用<strong>第一个子节点指针</strong>和<strong>下一个兄弟节点指针</strong>进行节点间关系描述，这样既描述了节点和当前层级其他节点的关系又描述了和下一层级节点的关系。</p>
+<p>所以对一棵通常的树，对节点结构定义如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    ParamType param; <span class="comment">// Any parameter you want ...</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Node</span> *<span class="title">firstChild</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Node</span> *<span class="title">nextSibling</span>;</span></span><br><span class="line">&#125; Node;</span><br></pre></td></tr></table></figure>
+
+<p>这里是对一般树节点结构的定义，后面会看到，对于特殊的树（如二叉树），受到结构的要求，我们可以直接定义全部指向子节点的指针。</p>
+<h2 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h2><p>二叉树的每个节点只存在两个孩子，所以直接定义为：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    ParamType param; <span class="comment">// Any parameter you want ...</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Node</span> *<span class="title">leftChild</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Node</span> *<span class="title">rightChild</span>;</span></span><br><span class="line">&#125; Node;</span><br></pre></td></tr></table></figure>
+
+<h3 id="二叉查找树"><a href="#二叉查找树" class="headerlink" title="二叉查找树"></a>二叉查找树</h3><p>二叉树最重要结构之一。二叉查找树要求每个节点<code>node</code>满足<code>node.leftChild.value &lt; node.value &lt; node.rightChild.value</code>的平衡条件。</p>
+<p>对二叉查找树有以下几类操作：</p>
+<ul>
+<li>初始化</li>
+<li>搜索节点</li>
+<li>插入节点</li>
+<li>删除</li>
+</ul>
+<p>对树的所有操作都体现了其特有的<strong>递归</strong>处理风格。</p>
+<h4 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h4><p>通过直接初始化一棵空树的根可以从零开始建立一棵树；当然我们也可以对一棵非空树的根递归地进行初始化操作从而释放整棵树的空间，最后返回一棵空树的根。</p>
+<h4 id="搜索与插入"><a href="#搜索与插入" class="headerlink" title="搜索与插入"></a>搜索与插入</h4><p>两者基础都是搜索。对二叉查找树而言只需从根开始比较输入值与根节点值大小，然后递归地向左右子树进行比较直至叶节点（它的左右子树均为空）即可。搜索发生在上述过程中，找到目标节点即可停止；插入操作在达到叶节点后插入到左/右子树即可。</p>
+<p>对于重复元素，一般考虑使用一个节点属性（如频数）表示个数，而不是增加树的节点。</p>
+<h4 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h4><p>比较麻烦的操作，方法有常规删除和懒惰删除。</p>
+<p>先说懒惰删除。懒惰删除不涉及树结构的变化，使用特别的标记注明哪些节点是被删除掉的，当访问这些节点的时候执行特定的处理。比如我们可以使用频数标记，注明了节点值出现的次数。</p>
+<p>常规删除进行树结构的改变，分多种情况讨论。</p>
+<p>当被删除节点为叶节点时一切都是美好的，只需要释放该节点的空间。当被删除节点只有一个孩子，事情也不是很复杂，我们让其唯一的孩子代替被删除节点，然后释放其空间即可，当然这里要注意做好节点地址备份，因为在用子节点替换之后，被删除节点的地址改变了。</p>
+<p>但是如果被删除节点有两个孩子就稍微麻烦一点。通常，我们使用被删除节点右子树中最小节点值替换被删除节点值（替换节点属性而不是向后的引用指针！），然后从被删除节点的右子树中递归地删除那个最小值节点。由于右子树中的最小节点一定是一个叶节点，因此在递归删除过程中很容易使用上文提到的方式对叶节点进行删除。因此，常规删除中应该同时包含所有情况的讨论以便在对双子树节点进行删除时能递归地进行。</p>
+<h3 id="AVL树"><a href="#AVL树" class="headerlink" title="AVL树"></a>AVL树</h3><p>现在让我们更进一步，二叉查找树实现了对数据的有效组织，通过递归的方法维护结构，但是它存在固有的问题——一个二叉查找树可能极度不平衡，某个节点的两棵子树高度可能相差甚远，在进行维护时的代价过高。</p>
+<p>因此我们引入<strong>平衡</strong>的概念，使得任何节点的深度都不宜过深，加入平衡的二叉查找树称为平衡二叉树。实现平衡的方法很多，最传统的是通过<strong>旋转</strong>操作构建的AVL树。</p>
+<p>AVL树定义为任意节点两子树高度差不超过1的二叉查找树。插入操作会导致树结构发生改变并影响平衡性，因此AVL树要求在进行打破平衡的操作后对树进行维护，使其仍保持平衡条件。维护方式也是对树结构的一些调整，称<strong>旋转</strong>。</p>
+<h4 id="AVL树的旋转"><a href="#AVL树的旋转" class="headerlink" title="AVL树的旋转"></a>AVL树的旋转</h4><p>解决何时旋转，在哪里旋转，向什么方向旋转。</p>
+<p>旋转分成左/右单旋转和左/右双旋转，旋转操作调整了子树的高度。由于插入操作只会影响插入点到根节点之间子树的平衡性，因此我们从插入点向根节点回溯找到第一个打破平衡性的节点，该节点将作为旋转操作的实施点。</p>
+<p>插入操作会导致以下后果：</p>
+<ul>
+<li>节点左子节点的左子树进行插入（左-左，使用左单旋）</li>
+<li>节点右子节点的右子树进行插入（右-右，使用右单旋）</li>
+<li>节点左子节点的右子树进行插入（左-右，使用左双旋）</li>
+<li>节点右子节点的左子树进行插入（右-左，使用右双旋）</li>
+</ul>
+<p>前两种情况对应单旋转，后两种情况对应双旋转（P82-P85）。找到一字型或之字形结构能很好确定旋转类型。</p>
+<p>实际上，双旋转的之字形结构是两个一字型结构叠加，因此自底向上进行两次单旋转就能实现双旋转。在具体实现中，先实现单旋转的结构重组，再用单旋转定义双旋转是个很好的选择。</p>
+<p>每次插入操作完成后都要进行AVL平衡的维护，因此我们需要额外为每个节点添加一个<code>height</code>变量记录其作为根节点的子树的高度。插入新节点后检查左右子树的<code>height</code>属性，一旦不平衡则进行旋转，旋转后更新子树高度。采用哪种旋转则根据插入节点的位置决定。</p>
+<p><strong>一旦进行过改变结构的操作都要重新计算高度！</strong></p>
+<p>AVL树插入例程在P88。</p>
+<h3 id="伸展树"><a href="#伸展树" class="headerlink" title="伸展树"></a>伸展树</h3><p>我决定跳过这一节…说起来太复杂了。简单总结一下，就是可以将任意一个节点通过AVL树的旋转方式将其调整到根节点（但不保证平衡性），从而方便对该节点的访问，这个过程叫做展开。</p>
+<h3 id="树的遍历"><a href="#树的遍历" class="headerlink" title="树的遍历"></a>树的遍历</h3><p>一共三种：</p>
+<ul>
+<li>前序遍历</li>
+<li>中序遍历</li>
+<li>后序遍历</li>
+</ul>
+<p>遍历顺序区别于何时访问根节点，实现方法也是基于递归，结构上用栈实现。</p>
+<p>还有一种方式叫做层序遍历，实际上就是广度优先搜索，用队列实现。</p>
+<h3 id="Huffman树"><a href="#Huffman树" class="headerlink" title="Huffman树"></a>Huffman树</h3><p>Huffman树实现了一种保证优先度的树结构，Huffman树的叶节点带有权值，Huffman树的构造过程从叶节点开始，每次选择两个最小权值的叶节点生成一个根节点，根节点权重为两个叶节点权重之和，然后将生成的根节点和剩下的叶节点一起重复构造新的根节点，直至最后。这种构造方式保证了WPL（Weighted Path Length，带权路径长）最优，带权路径长定义如下：</p>
+<p>$$<br>WPL = \sum_i w_i l_i<br>$$</p>
+<p>其中$w_i$表示第$i$个叶节点权重，$l_i$表示从根节点到第$i$个叶节点经过的路径长。</p>
+<p>在所有构造方式中，Huffman树的WPL最小。</p>
+<h4 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h4><p>一般使用数组实现。$n$个叶节点的Huffman树使用长度为$2n-1$的数组进行表示，数组前$n$个元素存储所有叶节点的权重；从第$n+1$个元素开始，选择之前所有元素中两个最小权重求和，作为该元素的权重，依次向后直至最后一个元素。</p>
+<p>同时还要注意每个元素要存储层级关系。用一个域描述当前节点的父节点，分别用两个域描述左右子节点。描述父节点是能够自底向上地遍历Huffman树任意一条叶节点到根节点的路径（Huffman编码时需要完成根-叶节点的路径）。</p>
+<p>实现中用数组下标进行节点间关系指示，节点结构可定义为如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span> &#123;</span></span><br><span class="line">    DataType data; <span class="comment">// Weights</span></span><br><span class="line">    <span class="keyword">int</span> left_child; <span class="comment">// Index of left child</span></span><br><span class="line">    <span class="keyword">int</span> right_child; <span class="comment">// Index of right child</span></span><br><span class="line">    <span class="keyword">int</span> parent; <span class="comment">// Index of parent, 0 for root node</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>2019.9.24，想了一下 ，鉴于树和图的关系比较近，决定先总结图相关知识。</p>
+</blockquote>
+<h1 id="图"><a href="#图" class="headerlink" title="图"></a>图</h1><p>图可以看做树结构的超集，描述多个节点间的关系。数学上图可以定义为顶点和边的集合：<br>$$<br>\mathbf{G} = (V,E)<br>$$</p>
+<h2 id="一些定义"><a href="#一些定义" class="headerlink" title="一些定义"></a>一些定义</h2><ul>
+<li>方向性：边是否有方向规定。有向图：$(u,v) \neq (v,u)$；无向图：$(u,v) = (v,u)$</li>
+<li>有环性：是否存在环。有环图：从顶点$n$出发能够返回顶点$n$；无环图：从顶点$n$出发无法返回。有向图中相邻两个顶点可以构成环，但是在无向图中定义相邻顶点间无法构成环（即无向图中至少三个节点成环）</li>
+<li>连通图：满足无向图中任意顶点到其他顶点都存在一条路径的图</li>
+<li>强连通图：满足连通条件的有向图</li>
+<li>弱连通图：非强连通图，但是去掉有向性后退化得到的无向图是连通图的有向图</li>
+<li>有权图：边带有权重属性</li>
+</ul>
+<h2 id="表示"><a href="#表示" class="headerlink" title="表示"></a>表示</h2><p>两种表示方法：</p>
+<ul>
+<li>邻接矩阵：适合稠密连接的图，对$N$顶点图构造$N\times N$布尔矩阵，表示连接关系；对于有权图，矩阵元素为权重</li>
+<li>邻接链表：适合稀疏连接的图，对$N$顶点图构造$N$元数组，存储链表头，每个链表元素为第$i$顶点的相邻顶点</li>
+</ul>
+<h2 id="基本算法"><a href="#基本算法" class="headerlink" title="基本算法"></a>基本算法</h2><h3 id="遍历"><a href="#遍历" class="headerlink" title="遍历"></a>遍历</h3><p>遍历是基本中的基本。经典方法：</p>
+<ul>
+<li>BFS</li>
+<li>DFS</li>
+</ul>
+<p>其中使用visited记录遍历过的节点用来防止重复访问。</p>
+<p>树作为简单的图，这两种方法也是经常使用的方法。</p>
+<h3 id="最短路径"><a href="#最短路径" class="headerlink" title="最短路径"></a>最短路径</h3><p>这应该是非常经典的问题了，我们分两类：</p>
+<ol>
+<li>BFS+队列搜索无权图最短路径</li>
+<li>Dijkstra搜索有权图最短路径</li>
+</ol>
+<p>对于无权图，常用方法是使用广度优先搜索（BFS）遍历整张图，找到终点时停止。BFS的遍历顺序满足了找到的一定是最短路径，实现起来通常结合队列。先将起点加入队列作为队头，再每次将距离为1的顶点加入队列，当所有距离为1的顶点入队后，若没有找到终点，则队头出队并记录为“已访问”，最短路径长度+1，再对新队头重复寻找距离为1且未访问过顶点的操作直至最终找到终点。</p>
+<p>对于有权图，我们使用Dijkstra算法，维护一张路径表$T$。$T$可以定义为如下（假设起点为$v_1$）：</p>
+<table>
+<thead>
+<tr>
+<th>Node</th>
+<th>Visited</th>
+<th>$d$</th>
+<th>$p$</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$v_1$</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>$v_2$</td>
+<td>0</td>
+<td>$\infty$</td>
+<td>0</td>
+</tr>
+<tr>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr>
+<td>$v_n$</td>
+<td>0</td>
+<td>$\infty$</td>
+<td>0</td>
+</tr>
+</tbody></table>
+<p>这是一张初始化空表，记录每个节点是否已被访问过，<strong>从起点开始经过已访问节点到每个节点的最小距离</strong>$d$以及前一个节点$p$。</p>
+<p>我们可以用合适的结构实现这个表，然后从起点开始反复更新这个表，更新访问状态、$d$和$p$，即Dijkstra所做的事情，用伪代码表示：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">RoutineTable T;</span><br><span class="line"><span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">    start = find_min_d_unvisited(T); <span class="comment">// Find start for minimum d in unvisited nodes</span></span><br><span class="line">    T[start].visited = <span class="number">1</span>; <span class="comment">// Visit new start node</span></span><br><span class="line">    <span class="function"><span class="keyword">for</span> neighbor in <span class="title">adjacent</span><span class="params">(T[start])</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!neighbor.visited) &#123;</span><br><span class="line">            update(T[neighbor].d, T[neighbor].p); <span class="comment">// Revise T with a possible shorter path</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>即，对于已经访问到的路径，如果找到一个新的邻接节点，检查新节点是否能让路径缩短，如果能，则更新为最短路径。记住，表$T$中记录的永远是<strong>从起点出发的最短路径</strong>！</p>
+<p>所有节点全部访问过（visited）后，整幅图的路径全部探明，因此算法结束，从终点根据$p$回溯至起点即为最短路径。</p>
+<h4 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h4><p>或许从Bellman方程上能更好理解Dijkstra算法的动机。Bellman方程描述的最短路径关系：</p>
+<p>$$<br>D_{min}(s,t) = D_{min}(s,v) + \min{d(v,t)}<br>$$</p>
+<p>上述Bellman方程使用类似递归的方式，定义了如何表示从点$s$到$t$的最短距离，其中$v$为中间节点。Bellman方程成立的条件是要求每次都要基于上次找到的最短路径$D_{min}(s,v)$，还要找到下一步走的最短路径$\min{d(v,t)}$。</p>
+<p>那么Dijkstra算法就分别解决这两步，最开始寻找所有未访问节点中$d$最小的节点进行访问解决了$D_{min}(s,v)$是谁的问题，其中找到的那个节点就是中间节点$v$；然后在$v$的邻接节点中找到路径最短的那个，即确定了$\min{d(v,t)}$。因此Dijkstra最外层一轮循环之后等价于更新了一遍Bellman方程。所以算法实际上就是不断更新Bellman方程直到所有点全部访问完。</p>
+<h3 id="最大流"><a href="#最大流" class="headerlink" title="最大流"></a>最大流</h3><p>流问题是另一类图问题。…</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/08/13/%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0%EF%BC%9AAdaBoost-Bagging%E4%B8%8ERandom-Forest/" rel="prev" title="集成学习：AdaBoost, Bagging与Random Forest">
+                  <i class="fa fa-chevron-left"></i> 集成学习：AdaBoost, Bagging与Random Forest
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/09/25/Computer-Vision-Notes/" rel="next" title="Computer Vision Notes">
+                  Computer Vision Notes <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Riko</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/kasumi-apple-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/kasumi-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/kasumi-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Helvetica:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"rikoli.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.8.1","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="2018-2019春夏学期人工智能课程内容整理。不定期更新。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI整理">
+<meta property="og:url" content="https://rikoli.github.io/2019/03/09/AI%E6%95%B4%E7%90%86/index.html">
+<meta property="og:site_name" content="Rikoの地下劇場">
+<meta property="og:description" content="2018-2019春夏学期人工智能课程内容整理。不定期更新。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s4.ax1x.com/2022/02/05/HnGSgA.png">
+<meta property="article:published_time" content="2019-03-09T08:42:29.000Z">
+<meta property="article:modified_time" content="2022-02-05T13:08:51.865Z">
+<meta property="article:author" content="Riko">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s4.ax1x.com/2022/02/05/HnGSgA.png">
+
+
+<link rel="canonical" href="https://rikoli.github.io/2019/03/09/AI%E6%95%B4%E7%90%86/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://rikoli.github.io/2019/03/09/AI%E6%95%B4%E7%90%86/","path":"2019/03/09/AI整理/","title":"AI整理"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>AI整理 | Rikoの地下劇場</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Rikoの地下劇場</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">日日精进</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9A%E6%90%9C%E7%B4%A2"><span class="nav-number">1.</span> <span class="nav-text">第一部分：搜索</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E8%88%AC%E6%90%9C%E7%B4%A2"><span class="nav-number">1.1.</span> <span class="nav-text">一般搜索</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Uninformed-search%EF%BC%9A%E6%97%A0%E4%BF%A1%E6%81%AF%E6%90%9C%E7%B4%A2"><span class="nav-number">1.1.1.</span> <span class="nav-text">Uninformed search：无信息搜索</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Informed-search%EF%BC%9A%E6%9C%89%E4%BF%A1%E6%81%AF%E6%90%9C%E7%B4%A2"><span class="nav-number">1.1.2.</span> <span class="nav-text">Informed search：有信息搜索</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Adversarial-Search%EF%BC%9A%E5%AF%B9%E6%8A%97%E6%90%9C%E7%B4%A2"><span class="nav-number">1.2.</span> <span class="nav-text">Adversarial Search：对抗搜索</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Game-Tree%EF%BC%9A%E5%8D%9A%E5%BC%88%E6%A0%91-%E6%B8%B8%E6%88%8F%E6%A0%91"><span class="nav-number">1.2.1.</span> <span class="nav-text">Game Tree：博弈树&#x2F;游戏树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Minimax-Search%EF%BC%9A%E6%9C%80%E5%B0%8F%E6%9C%80%E5%A4%A7%E5%8C%96%E6%90%9C%E7%B4%A2"><span class="nav-number">1.2.2.</span> <span class="nav-text">Minimax Search：最小最大化搜索</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Monte-Carlo-Tree-Search%EF%BC%9A%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B%E6%A0%91%E6%90%9C%E7%B4%A2"><span class="nav-number">1.2.3.</span> <span class="nav-text">Monte Carlo Tree Search：蒙特卡洛树搜索</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Constraint-Satisfaction-Problems-%E7%BA%A6%E6%9D%9F%E6%BB%A1%E8%B6%B3%E9%97%AE%E9%A2%98"><span class="nav-number">1.3.</span> <span class="nav-text">Constraint Satisfaction Problems 约束满足问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Constraint-Graph-%E7%BA%A6%E6%9D%9F%E5%9B%BE"><span class="nav-number">1.3.1.</span> <span class="nav-text">Constraint Graph 约束图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Backtracking-%E5%9B%9E%E6%BA%AF%E6%B3%95"><span class="nav-number">1.3.2.</span> <span class="nav-text">Backtracking 回溯法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Inference%EF%BC%9A%E6%8E%A8%E7%90%86"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">Inference：推理</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%EF%BC%9A%E6%8E%A8%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">第二部分：推理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Knowledge-and-Reasoning-%E7%9F%A5%E8%AF%86%E8%A1%A8%E7%A4%BA%E4%B8%8E%E6%8E%A8%E7%90%86"><span class="nav-number">2.1.</span> <span class="nav-text">Knowledge and Reasoning 知识表示与推理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%AE%9A%E4%B9%89"><span class="nav-number">2.1.1.</span> <span class="nav-text">基本定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E7%90%86%E8%AF%AD%E6%B3%95"><span class="nav-number">2.1.2.</span> <span class="nav-text">推理语法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95%E5%AE%9A%E4%B9%89"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">语法定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%90%E7%AE%97%E5%BE%8B"><span class="nav-number">2.1.2.2.</span> <span class="nav-text">运算律</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Resolution-Rule-%E5%BD%92%E7%BB%93%E6%B3%95"><span class="nav-number">2.1.2.3.</span> <span class="nav-text">Resolution Rule 归结法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Forward-chaining-%E5%89%8D%E5%90%91%E9%93%BE%E6%8E%A5"><span class="nav-number">2.1.2.4.</span> <span class="nav-text">Forward chaining 前向链接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Backward-chaining-%E5%90%8E%E5%90%91%E9%93%BE%E6%8E%A5"><span class="nav-number">2.1.2.5.</span> <span class="nav-text">Backward chaining 后向链接</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Probabilistic-Reasoning-%E6%A6%82%E7%8E%87%E6%8E%A8%E7%90%86"><span class="nav-number">2.2.</span> <span class="nav-text">Probabilistic Reasoning 概率推理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E6%9E%84%EF%BC%9A%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BD%91%E7%BB%9C-Bayesian-Network%EF%BC%88BN%EF%BC%89"><span class="nav-number">2.2.1.</span> <span class="nav-text">结构：贝叶斯网络 Bayesian Network（BN）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E7%90%86%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.2.2.</span> <span class="nav-text">推理模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#D-separation"><span class="nav-number">2.2.3.</span> <span class="nav-text">D-separation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E7%8E%87%E6%8E%A8%E7%90%86%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.2.4.</span> <span class="nav-text">概率推理实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9E%9A%E4%B8%BE%E6%B3%95-Enumerating"><span class="nav-number">2.2.4.1.</span> <span class="nav-text">枚举法 Enumerating</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%87%E6%A0%B7%E6%B3%95-Sampling"><span class="nav-number">2.2.4.2.</span> <span class="nav-text">采样法 Sampling</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E6%A8%A1%E5%9E%8B-Temporal-Model"><span class="nav-number">2.2.5.</span> <span class="nav-text">时间模型 Temporal Model</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E8%A7%82%E6%B5%8B%E6%A8%A1%E5%9E%8B-State-Observation-Model"><span class="nav-number">2.2.5.1.</span> <span class="nav-text">状态观测模型 State-Observation Model</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9A%90%E9%A9%AC%E5%B0%94%E7%A7%91%E5%A4%AB%E6%A8%A1%E5%9E%8B-Hidden-Markov-Model%EF%BC%88HMM%EF%BC%89"><span class="nav-number">2.2.5.2.</span> <span class="nav-text">隐马尔科夫模型 Hidden Markov Model（HMM）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E6%97%B6%E9%97%B4%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%8E%A8%E7%90%86"><span class="nav-number">2.2.6.</span> <span class="nav-text">基于时间模型的推理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Filtering"><span class="nav-number">2.2.6.1.</span> <span class="nav-text">Filtering</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Prediction"><span class="nav-number">2.2.6.2.</span> <span class="nav-text">Prediction</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Smoothing"><span class="nav-number">2.2.6.3.</span> <span class="nav-text">Smoothing</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B2%92%E5%AD%90%E6%BB%A4%E6%B3%A2-Particle-Filter"><span class="nav-number">2.2.7.</span> <span class="nav-text">粒子滤波 Particle Filter</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4"><span class="nav-number">2.2.7.1.</span> <span class="nav-text">步骤</span></a></li></ol></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Riko"
+      src="/images/kasumi.png">
+  <p class="site-author-name" itemprop="name">Riko</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/RikoLi" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;RikoLi" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://lovelive.ws/" title="https:&#x2F;&#x2F;lovelive.ws&#x2F;" rel="noopener" target="_blank">μ's时光蛋</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://aqours.tv/" title="https:&#x2F;&#x2F;aqours.tv&#x2F;" rel="noopener" target="_blank">Aqours许愿瓶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liella.tv/" title="https:&#x2F;&#x2F;liella.tv&#x2F;" rel="noopener" target="_blank">Liella星象馆</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://rikoli.github.io/2019/03/09/AI%E6%95%B4%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/kasumi.png">
+      <meta itemprop="name" content="Riko">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rikoの地下劇場">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          AI整理
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-03-09 16:42:29" itemprop="dateCreated datePublished" datetime="2019-03-09T16:42:29+08:00">2019-03-09</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-02-05 21:08:51" itemprop="dateModified" datetime="2022-02-05T21:08:51+08:00">2022-02-05</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%B0%E5%AD%A6/" itemprop="url" rel="index"><span itemprop="name">数学</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>2018-2019春夏学期人工智能课程内容整理。不定期更新。</p>
+<span id="more"></span>
+<h1 id="第一部分：搜索"><a href="#第一部分：搜索" class="headerlink" title="第一部分：搜索"></a>第一部分：搜索</h1><h2 id="一般搜索"><a href="#一般搜索" class="headerlink" title="一般搜索"></a>一般搜索</h2><h3 id="Uninformed-search：无信息搜索"><a href="#Uninformed-search：无信息搜索" class="headerlink" title="Uninformed search：无信息搜索"></a>Uninformed search：无信息搜索</h3><p>盲目搜索，等同于蛮力搜索，常用方法：</p>
+<ul>
+<li>DFS</li>
+<li>BFS</li>
+<li>IDS<br>迭代加深搜索，DFS的改进版，过程分为多个iteration，每个iteration内进行深度限制为n的DFS，n从0开始每次迭代增加1，直至搜索结束。</li>
+<li>UCS<br>Uniform-cost search，BFS的改进版，使用优先队列实现。扩充cost最小的节点，其中cost为从起点到某节点边上权重之和。算法结束得到连接至目标节点的最短路径。边权重相同时退化为BFS。</li>
+</ul>
+<h3 id="Informed-search：有信息搜索"><a href="#Informed-search：有信息搜索" class="headerlink" title="Informed search：有信息搜索"></a>Informed search：有信息搜索</h3><p>通过某种方式得到关于某节点至目标节点的“距离”信息，根据信息设计的搜索。称为启发式搜索。</p>
+<p>关键在设计启发式函数$h(n)$，要求：</p>
+<ol>
+<li>$h(n)\ge0$</li>
+<li>满足广义三角不等式：$h(n) \le cost(n,n+1) + h(n+1)$</li>
+</ol>
+<p>常用方法：</p>
+<ul>
+<li><p>GBFS<br>Greedy best-first search，根据启发式函数选择搜索路径，$h(n)$表示第n节点距目标节点距离，每次选择$h(n)$最小的节点作为下个节点。</p>
+</li>
+<li><p>A* search<br>同时考虑cost和heuristic function，判断依据：$f(n)=g(n)+h(n)$，g为cost，h为距目标距离。选择$f(n)$最小的节点作为下个节点。</p>
+</li>
+</ul>
+<hr>
+<p><strong>3.13</strong></p>
+<h2 id="Adversarial-Search：对抗搜索"><a href="#Adversarial-Search：对抗搜索" class="headerlink" title="Adversarial Search：对抗搜索"></a>Adversarial Search：对抗搜索</h2><p>本课程只讨论如下特征的对抗搜索：</p>
+<ul>
+<li>zero-sum游戏：一局游戏后，双方受益损失总和为零，即一定一方受益，另一方损失</li>
+<li>确定状态游戏：每个状态下关于这个状态的全部信息已知</li>
+</ul>
+<h3 id="Game-Tree：博弈树-游戏树"><a href="#Game-Tree：博弈树-游戏树" class="headerlink" title="Game Tree：博弈树/游戏树"></a>Game Tree：博弈树/游戏树</h3><p>博弈树是一种基本对抗搜索状态空间结构，以下搜索算法均已博弈树为基础。</p>
+<p>博弈树结构如下：</p>
+<ul>
+<li>每个节点：博弈/游戏过程的某个状态</li>
+<li>边：表示两个游戏状态的连续关系</li>
+</ul>
+<h3 id="Minimax-Search：最小最大化搜索"><a href="#Minimax-Search：最小最大化搜索" class="headerlink" title="Minimax Search：最小最大化搜索"></a>Minimax Search：最小最大化搜索</h3><p>minimax search假设对抗双方都做出最佳选择，一方使目标函数尽可能大，另一方使其尽可能小。</p>
+<p>特点：</p>
+<ul>
+<li>为博弈树每个节点计算minimax value</li>
+<li>MAX方，MIN方轮流决策</li>
+<li>深度访问，递归访问</li>
+<li>需要最终状态的目标函数值</li>
+</ul>
+<p>理想情况下，博弈树完全，从根节点按照MAX、MIN双方轮流的顺序进行决策，每次决策递归地确定当前节点的minimax value，最后将整棵博弈树节点全部填满。</p>
+<p>minimax search为博弈树节点规定了如下属性：</p>
+<ul>
+<li>minimax value</li>
+</ul>
+<p><strong>H-Minimax Search</strong>：现实情况下，完全博弈树过大，遍历不现实，采用depth-limited的方式：限制最深的访问深度，将最深层的节点视为最终的叶节点。使用heuristic策略为这些叶节点估计minimax value，然后同理想情况下一样进行搜索。</p>
+<p><strong>alpha-beta剪枝</strong>：用于减小博弈树规模。这种策略为节点规定了如下属性：</p>
+<ul>
+<li>minimax value</li>
+<li>alpha、beta作为参考边界：[alpha, beta]</li>
+</ul>
+<p>alpha、beta初始化为负、正无穷，每次搜索一个节点的子节点后，根据子节点minimax value大小&amp;当前节点角色（MAX或MIN），确定当前节点的一个边界，并回溯至整棵树的根节点，途中所有经过节点的边界都进行更新。</p>
+<p>边界描述了当前节点minimax value的取值范围，根据边界可以避免访问一些子树，即剪枝。</p>
+<h3 id="Monte-Carlo-Tree-Search：蒙特卡洛树搜索"><a href="#Monte-Carlo-Tree-Search：蒙特卡洛树搜索" class="headerlink" title="Monte Carlo Tree Search：蒙特卡洛树搜索"></a>Monte Carlo Tree Search：蒙特卡洛树搜索</h3><p>基本思想：基于多次实验的统计情况，构建一棵博弈树的子树，其中节点为实验中访问到的节点。根据每个节点的访问次数和对应游戏结果计算选择该点为下一个状态的概率，选择概率大的为下个状态。</p>
+<p>决策核心依据：<strong>概率</strong>！！</p>
+<p>每个节点属性：</p>
+<ul>
+<li>实验中由此节点开始最终游戏胜利的次数</li>
+<li>实验中此节点总到达次数</li>
+</ul>
+<p>MCTS过程如下，反复执行：</p>
+<ol>
+<li>selection：从根节点（当前状态节点）随机进行决策（rollout），确定一条结束于当前叶节点的路径</li>
+<li>expansion：从当前叶节点进行一次rollout，到达次态，初始化次态属性0/0</li>
+<li>simulation：从expansion扩充出来的节点进行rollout，直至游戏结束状态</li>
+<li>backpropagation：从simulation得到的最终状态按照simulation的路径回溯更新路径上全部节点的属性，直至根节点</li>
+</ol>
+<hr>
+<p><strong>3.20</strong></p>
+<h2 id="Constraint-Satisfaction-Problems-约束满足问题"><a href="#Constraint-Satisfaction-Problems-约束满足问题" class="headerlink" title="Constraint Satisfaction Problems 约束满足问题"></a>Constraint Satisfaction Problems 约束满足问题</h2><p>CSP有如下特征：</p>
+<ul>
+<li>variable set：一些可赋值变量构成的集合</li>
+<li>domain set：变量取值构成的集合</li>
+<li>constraint set：约束条件构成的集合</li>
+</ul>
+<p>CSP更重视满足约束问题的一个解，更重视结果而非过程。</p>
+<h3 id="Constraint-Graph-约束图"><a href="#Constraint-Graph-约束图" class="headerlink" title="Constraint Graph 约束图"></a>Constraint Graph 约束图</h3><p>一种描述约束问题的结构：</p>
+<ul>
+<li>node: 问题的变量</li>
+<li>edge: 变量的相关（节点之间连接一条边表示两个节点表示的变量存在相互约束关系）</li>
+</ul>
+<p><strong>延伸：Hyper Graph 超图</strong><br>超图中引入超边（Hyper Edge），连接多个节点，表示多个变量之间存在约束关系。超图可以通过化简成为普通的约束图。</p>
+<h3 id="Backtracking-回溯法"><a href="#Backtracking-回溯法" class="headerlink" title="Backtracking 回溯法"></a>Backtracking 回溯法</h3><p>经典的解决CSP的算法，结合树使用递归实现。一种改进的DFS，有两点改进：</p>
+<ul>
+<li>固定<ul>
+<li>一次给一个节点的变量赋值</li>
+<li>赋值按照固定顺序</li>
+</ul>
+</li>
+<li>检查约束</li>
+</ul>
+<p>问题：</p>
+<ul>
+<li>先给哪个节点变量赋值？which variable?</li>
+<li>给变量赋哪个值？which value in domain?</li>
+</ul>
+<p>解决策略：解决策略均从能够使搜索树尽可能小的思想出发</p>
+<ul>
+<li>which variable? 两种策略<ul>
+<li>给自由度最大的节点变量赋值（Degree heuristic）</li>
+<li>给取值可能最少的节点变量赋值（Minimum-remaining-value, MRV）</li>
+</ul>
+</li>
+<li>which value?<ul>
+<li>选择使未来有更多种可能的值进行赋值（Least-constraining-value heuristic）</li>
+<li>domain能否动态缩小？→ <strong>Inference的讨论</strong></li>
+</ul>
+</li>
+</ul>
+<h4 id="Inference：推理"><a href="#Inference：推理" class="headerlink" title="Inference：推理"></a>Inference：推理</h4><p>推理用来动态减小domain的大小，从而减小可能的搜索空间。区别了回溯法与普通DFS。</p>
+<p>回溯法中要保证两个一致性：</p>
+<ul>
+<li>Node Consistency：每个节点全部取值满足自身约束，即在值域内取值</li>
+<li>Arc Consistency：每个节点自身全部取值满足邻居节点的约束</li>
+</ul>
+<p>保证Arc Consistency的两种方法：</p>
+<ul>
+<li><p><strong>Forward Checking</strong><br>进行一个变量赋值后，确定与其构成约束关系的邻居节点变量的值域，去掉illegal的可能性。</p>
+</li>
+<li><p><strong>AC-3算法（伪代码见ppt）</strong><br>可视为每次对节点赋值前的初始化，用来修改节点的值域，检查arc consistency。如果满足一致性，进行下一轮赋值；如果不满足，回溯到上个状态。</p>
+</li>
+</ul>
+<p>AC-3比forward checking稍微快一点。</p>
+<p>回溯法整体流程：赋值（同时保证node consistency）→ 做forward checking/检查arc consistency → 赋值 → …</p>
+<hr>
+<p><strong>3.31</strong></p>
+<h1 id="第二部分：推理"><a href="#第二部分：推理" class="headerlink" title="第二部分：推理"></a>第二部分：推理</h1><h2 id="Knowledge-and-Reasoning-知识表示与推理"><a href="#Knowledge-and-Reasoning-知识表示与推理" class="headerlink" title="Knowledge and Reasoning 知识表示与推理"></a>Knowledge and Reasoning 知识表示与推理</h2><h3 id="基本定义"><a href="#基本定义" class="headerlink" title="基本定义"></a>基本定义</h3><ul>
+<li>断言sentence：有真伪之分的一个判断</li>
+<li>语法syntax：规定了断言的格式</li>
+<li>语义semantic：规定了断言的真伪</li>
+<li>模型model：使断言$\alpha$为真的条件$m$，条件$m$的集合记为$M(\alpha)$</li>
+<li>蕴含entailment：描述两个断言之间的关系，$KB\vDash\alpha$，表示$KB$蕴含$\alpha$，即$KB$为真时，$\alpha$一定为真，也意味着$M(KB)\sube M(\alpha)$</li>
+</ul>
+<h3 id="推理语法"><a href="#推理语法" class="headerlink" title="推理语法"></a>推理语法</h3><h4 id="语法定义"><a href="#语法定义" class="headerlink" title="语法定义"></a>语法定义</h4><p>规定了断言之间进行推理的规则、运算规律。</p>
+<p>用P表示断言，断言之间运算结果仍为断言，运算如下：</p>
+<ul>
+<li>negation: $\neg P$</li>
+<li>conjunction: $P_1 \land P_2$</li>
+<li>disjunction: $P_1 \lor P_2$</li>
+<li>implication: $P_1 \implies P_2$ 等价于 $\neg P_1 \lor P_2$</li>
+<li>biconditional: $P_1 \iff P_2$ 等价于 $(P_1\implies P_2)\land(P_2\implies P_1)$</li>
+</ul>
+<h4 id="运算律"><a href="#运算律" class="headerlink" title="运算律"></a>运算律</h4><ul>
+<li>commutativity: 交换律</li>
+<li>associativity: 结合律</li>
+<li>double-negation elimination: 双重否定相消</li>
+<li>contraposition: 逆否不变 $(\alpha\implies \beta) \equiv (\neg\beta \implies \neg\alpha)$</li>
+<li>De Morgan: 德摩根律</li>
+<li>distributivity: 分配率</li>
+</ul>
+<h4 id="Resolution-Rule-归结法"><a href="#Resolution-Rule-归结法" class="headerlink" title="Resolution Rule 归结法"></a>Resolution Rule 归结法</h4><p>一种对已知断言集合进行推理的方法。</p>
+<p><strong>合取范式：CNF</strong><br>使用归结法之前要将断言集合整理成CNF（合取范式）格式。格式为<strong>或语句块求与运算</strong>。</p>
+<p>CNF：$(…\lor…\lor…)\land…\land…\land(…\lor…\lor…)$</p>
+<p>推理前明确两个事物：</p>
+<ul>
+<li>observation：已知某断言的真伪</li>
+<li>goal：要推理出的结果，某断言为真or伪</li>
+</ul>
+<p>找到CNF的一个子式，要求其中包含observation的互补断言与goal断言，使用归结法，互补断言消去，剩下的为推理结果。</p>
+<p><strong>E.g.</strong><br>已知CNF: $(\neg B_{1,1} \lor P_{1,2} \lor P_{2,1})\land(\neg P_{1,2} \lor B_{1,1})\land(\neg P_{2,1} \lor B_{1,1})$</p>
+<p>已知：$\neg B_{1,1}$<br>目标：证伪$\neg P_{1,2}$</p>
+<p>归结法：$\frac{\neg P_{1,2}\lor B_{1,1},\space \neg B_{1,1}}{\neg P_{1,2}}$, $\frac{\neg P_{1,2},\space P_{1,2}}{false}$</p>
+<h4 id="Forward-chaining-前向链接"><a href="#Forward-chaining-前向链接" class="headerlink" title="Forward chaining 前向链接"></a>Forward chaining 前向链接</h4><p>使用AND-OR Graph进行推理。</p>
+<p>前提：</p>
+<ul>
+<li>已知全部的推理信息<br>e.g.<br>$A \land B \implies C \<br>A \<br>B \<br>C \implies D \<br>…$</li>
+</ul>
+<p>使用所有断言构建一个AND-OR Graph，对每个推理的节点维护一个值，值为这个推理所需要的前提数量。E.g. $A \land B \implies C$构成的推理节点的值为2。</p>
+<p><strong>更新流程：</strong><br>从最开始的前提断言（已知）出发，检查该断言连接的所有推理节点，使节点值减少1。最后所有节点值都为0时，推理结束得到结论。</p>
+<h4 id="Backward-chaining-后向链接"><a href="#Backward-chaining-后向链接" class="headerlink" title="Backward chaining 后向链接"></a>Backward chaining 后向链接</h4><p>没详细讲，略过。</p>
+<hr>
+<p><strong>4.20</strong></p>
+<h2 id="Probabilistic-Reasoning-概率推理"><a href="#Probabilistic-Reasoning-概率推理" class="headerlink" title="Probabilistic Reasoning 概率推理"></a>Probabilistic Reasoning 概率推理</h2><p>更常见的推理模型，基于概率进行推理判断。</p>
+<h3 id="结构：贝叶斯网络-Bayesian-Network（BN）"><a href="#结构：贝叶斯网络-Bayesian-Network（BN）" class="headerlink" title="结构：贝叶斯网络 Bayesian Network（BN）"></a>结构：贝叶斯网络 Bayesian Network（BN）</h3><p>使用有向图表示一群随机变量之间的关系。</p>
+<ul>
+<li>节点：随机变量的条件概率，父节点为条件下本节点随机变量的条件概率</li>
+<li>有向边：因果关系</li>
+</ul>
+<p>BN的联合概率：$P(X_1,\dots, X_n) = \prod_i P(X_i | parents(X_i))$</p>
+<h3 id="推理模式"><a href="#推理模式" class="headerlink" title="推理模式"></a>推理模式</h3><ul>
+<li>causal reasoning 因果推理：根据父节点推断子节点信息</li>
+<li>evidence reasoning 结果推理：根据子节点推断父节点信息</li>
+<li>intercausal reasoning 互相推理：任意两节点进行信息推理</li>
+</ul>
+<h3 id="D-separation"><a href="#D-separation" class="headerlink" title="D-separation"></a>D-separation</h3><p>判断一个BN里面哪些节点是条件独立的，满足下列条件，称为D-separation，即条件独立。</p>
+<p><strong>判据</strong>：给定一个节点的父节点（已知一个节点的父节点信息）时，该节点与其非后代节点条件独立。</p>
+<h3 id="概率推理实现"><a href="#概率推理实现" class="headerlink" title="概率推理实现"></a>概率推理实现</h3><h4 id="枚举法-Enumerating"><a href="#枚举法-Enumerating" class="headerlink" title="枚举法 Enumerating"></a>枚举法 Enumerating</h4><p>将BN图逐渐合并的过程，即将CPT（条件概率表）逐渐合并的过程。</p>
+<ul>
+<li>步骤：转化为factor（反归一化）→求联合分布（用BN联合概率公式）→对无关变量求和，只剩需要变量</li>
+<li>变量求和顺序：先求和度小的节点</li>
+</ul>
+<p><strong>消去无关变量的trick</strong>：每次合并完几个BN的节点后就将无关变量求和消去，不要到最后再消。</p>
+<h4 id="采样法-Sampling"><a href="#采样法-Sampling" class="headerlink" title="采样法 Sampling"></a>采样法 Sampling</h4><p>枚举运算消耗大，效率低，使用采样法进行近似推理（Approximate Inference）。</p>
+<p>几种采样法：</p>
+<p><strong>Prior sampling：</strong><br>在$[0,1)$范围内取随机数，按拓扑顺序对BN中对所有随机变量根据CPT描述的条件概率对$[0,1)$分段，根据随机取值所在位置确定随机变量取值。进行多组随机变量取值，最后统计满足要求的状态组合出现的频率作为概率。<br>※<em>产生大量采样样本</em></p>
+<p><strong>Rejection sampling：</strong><br>实际上还是prior sampling，只不过在过程中对BN中某些已知的随机变量，固定这些值不变然后进行推理。即，先进行多组实验得到大量随机变量取值组合，在其中拒绝掉不符合已知条件的组合，用剩下的组合中计算所需的概率。<br>※<em>产生大量采样样本，然后拒绝掉不符合证据的，用剩下的计算概率</em></p>
+<p><strong>Likelihood weighting sampling：</strong><br>权重w初始化为1，对BN中所有节点按拓扑顺序推理，用已知变量更新权重$w\leftarrow w\times P(e|parents(e))$，对未知变量用取样确定取值，最终得到目标变量取值和对应权重w。<br>※<em>只生成了满足证据的样本</em></p>
+<h3 id="时间模型-Temporal-Model"><a href="#时间模型-Temporal-Model" class="headerlink" title="时间模型 Temporal Model"></a>时间模型 Temporal Model</h3><p>对随时间变化的BN建立的模型，有两个假设作为前提：</p>
+<ul>
+<li>Markov性：随机变量$X$在$t$时刻状态仅与$t-1$时刻相关</li>
+<li>Time-invariant：时不变性，$P(X_t|X_{t-1})$与$t$无关，$t$不影响分布</li>
+</ul>
+<h4 id="状态观测模型-State-Observation-Model"><a href="#状态观测模型-State-Observation-Model" class="headerlink" title="状态观测模型 State-Observation Model"></a>状态观测模型 State-Observation Model</h4><p>一种时间模型，BN节点包括两种随机变量：</p>
+<ul>
+<li>状态变量$X_t$，满足Markov性</li>
+<li>观测变量$E_t$，只受对应的$X_t$影响，与$t$时刻之前的状态和观测值独立，即$P(E_t|X_{0:t},E_{0:t-1})=P(E_t|X_t)$</li>
+</ul>
+<h4 id="隐马尔科夫模型-Hidden-Markov-Model（HMM）"><a href="#隐马尔科夫模型-Hidden-Markov-Model（HMM）" class="headerlink" title="隐马尔科夫模型 Hidden Markov Model（HMM）"></a>隐马尔科夫模型 Hidden Markov Model（HMM）</h4><p>随机变量取值离散，且每个状态/观测结果只用一个随机变量描述的状态观测模型。</p>
+<p><img src="https://s4.ax1x.com/2022/02/05/HnGSgA.png" alt="HnGSgA.png"></p>
+<h3 id="基于时间模型的推理"><a href="#基于时间模型的推理" class="headerlink" title="基于时间模型的推理"></a>基于时间模型的推理</h3><p>核心想法：只有相同的time slice的状态变量和观测变量之间才可以根据CPT进行概率推理计算，因此进行跨time slice推理时要想好怎么将跨time slice根据推理关系转换到同个time slice下。</p>
+<p><strong>要知道为什么做出特定的数学公式推导，要结合BN图才能更好理解。</strong></p>
+<p>三种基本的推理：</p>
+<h4 id="Filtering"><a href="#Filtering" class="headerlink" title="Filtering"></a>Filtering</h4><ul>
+<li>状态估计</li>
+<li>求$P(X_t|e_{1:t})$，即已知过去全部观测结果，求当前状态概率</li>
+<li>递归地推理，在HMM节点上拓扑地进行</li>
+<li>迭代式：$P(X_{t+1}|e_{1:t+1})=\alpha P(e_{t+1}|X_{t+1})\sum_{x_t}P(X_{t+1}|x_t)P(x_t|e_{1:t})$</li>
+</ul>
+<h4 id="Prediction"><a href="#Prediction" class="headerlink" title="Prediction"></a>Prediction</h4><ul>
+<li>状态估计</li>
+<li>求$P(X_{t+k}|e_{1:t})$，即已知过去，求未来某时刻状态概率</li>
+<li>递归地推理，在HMM节点上拓扑地进行</li>
+<li>迭代式：$P(X_{t+k+1}|e_{1:t}) = \sum_{x_{t+k}}P(X_{t+k+1}|x_{t+k})P(x_{t+k}|e_{1:t})$</li>
+</ul>
+<h4 id="Smoothing"><a href="#Smoothing" class="headerlink" title="Smoothing"></a>Smoothing</h4><ul>
+<li>用更多evidence“平滑”一个过去的状态变量</li>
+<li>求$P(X_k|e_{1:t})$，已知一系列观察结果，求过去某个状态“平滑”之后的概率</li>
+<li>用了更多的evidence</li>
+<li>前向、后向信息传递</li>
+<li>算式：$P(X_k|e_{1:t}) = \mathbf{f}<em>{1:k} \times \mathbf{b}</em>{k+1:t}$<br>其中$\mathbf{f}<em>{1:k} = \alpha P(e_k|X_k)\sum</em>{x_{k-1}}P(X_k|x_{k-1})P(x_{k-1}|e_{1:k-1})$，称为前向传递；$\mathbf{b}_{k+1:t}$为后向传递，表达式复杂，见PPT</li>
+</ul>
+<hr>
+<p><strong>4.30</strong></p>
+<h3 id="粒子滤波-Particle-Filter"><a href="#粒子滤波-Particle-Filter" class="headerlink" title="粒子滤波 Particle Filter"></a>粒子滤波 Particle Filter</h3><p>使用随机采样方法近似估计状态空间模型（以概率的形式）。所谓<strong>粒子</strong>，就是<strong>样本</strong>。</p>
+<h4 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h4><ol>
+<li>初始化：在状态空间上均匀采样（散开粒子）</li>
+<li>采样：按照状态转移模型进行一步状态转移，得到更新一次之后的样本</li>
+<li>加权：根据问题本身设置加权策略，对所有样本加权，归一化权重为1</li>
+<li>重采样：根据权重选择权重较高的几个状态，只在这几个状态上重采样，然后重复步骤2~4至结束</li>
+</ol>
+<p>按照上述步骤，算法运行结束，得到一个近似的状态值（由样本粒子描述）。粒子（样本）数量越多，结果越接近真实状态。</p>
+<p>…</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/12/08/GAN-demo-ACG-Style-Faces-Generating/" rel="prev" title="GAN demo: ACG-Style Faces Generating">
+                  <i class="fa fa-chevron-left"></i> GAN demo: ACG-Style Faces Generating
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/03/19/%E4%B8%80%E4%BA%9B%E5%9B%9E%E5%BF%86%E7%9A%84%E4%BA%8B/" rel="next" title="一些回忆的事">
+                  一些回忆的事 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Riko</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

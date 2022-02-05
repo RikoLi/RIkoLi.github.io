@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/kasumi-apple-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/kasumi-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/kasumi-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Helvetica:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"rikoli.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.8.1","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="刚碰Python的时候就听说了可以写代码扒图，心想着试一试，于是写了一个简单的demo实现从百度图片上面扒图的功能，用的是requests库。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用Python requests库实现的简单爬虫">
+<meta property="og:url" content="https://rikoli.github.io/2018/08/06/%E7%94%A8Python-requests%E5%BA%93%E5%AE%9E%E7%8E%B0%E7%9A%84%E7%AE%80%E5%8D%95%E7%88%AC%E8%99%AB/index.html">
+<meta property="og:site_name" content="Rikoの地下劇場">
+<meta property="og:description" content="刚碰Python的时候就听说了可以写代码扒图，心想着试一试，于是写了一个简单的demo实现从百度图片上面扒图的功能，用的是requests库。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-08-06T12:28:50.000Z">
+<meta property="article:modified_time" content="2022-02-05T12:51:49.528Z">
+<meta property="article:author" content="Riko">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://rikoli.github.io/2018/08/06/%E7%94%A8Python-requests%E5%BA%93%E5%AE%9E%E7%8E%B0%E7%9A%84%E7%AE%80%E5%8D%95%E7%88%AC%E8%99%AB/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://rikoli.github.io/2018/08/06/%E7%94%A8Python-requests%E5%BA%93%E5%AE%9E%E7%8E%B0%E7%9A%84%E7%AE%80%E5%8D%95%E7%88%AC%E8%99%AB/","path":"2018/08/06/用Python-requests库实现的简单爬虫/","title":"用Python requests库实现的简单爬虫"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>用Python requests库实现的简单爬虫 | Rikoの地下劇場</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Rikoの地下劇場</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">日日精进</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Riko"
+      src="/images/kasumi.png">
+  <p class="site-author-name" itemprop="name">Riko</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/RikoLi" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;RikoLi" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://lovelive.ws/" title="https:&#x2F;&#x2F;lovelive.ws&#x2F;" rel="noopener" target="_blank">μ's时光蛋</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://aqours.tv/" title="https:&#x2F;&#x2F;aqours.tv&#x2F;" rel="noopener" target="_blank">Aqours许愿瓶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liella.tv/" title="https:&#x2F;&#x2F;liella.tv&#x2F;" rel="noopener" target="_blank">Liella星象馆</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://rikoli.github.io/2018/08/06/%E7%94%A8Python-requests%E5%BA%93%E5%AE%9E%E7%8E%B0%E7%9A%84%E7%AE%80%E5%8D%95%E7%88%AC%E8%99%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/kasumi.png">
+      <meta itemprop="name" content="Riko">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rikoの地下劇場">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          用Python requests库实现的简单爬虫
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-08-06 20:28:50" itemprop="dateCreated datePublished" datetime="2018-08-06T20:28:50+08:00">2018-08-06</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-02-05 20:51:49" itemprop="dateModified" datetime="2022-02-05T20:51:49+08:00">2022-02-05</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">编程</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>刚碰Python的时候就听说了可以写代码扒图，心想着试一试，于是写了一个简单的demo实现从百度图片上面扒图的功能，用的是requests库。</p>
+<span id="more"></span>
+
+<p>为什么不用自带的urllib库呢？其实本人并不知道urllib和requests两个库孰优孰劣，或者说根本不能比较，因为使用的场合不尽相同，使用者的爱好也不尽相同，只是先看到了requests库的教程于是先去查了它的文档，所以就用了这个库。</p>
+<p>基本实现步骤如下：</p>
+<ol>
+<li>向image.baidu.com发一个带数据的get请求，包含要搜索的关键字keyword</li>
+<li>拿到response之后用正则表达式筛选图片的URL，存入列表</li>
+<li>遍历图片URL列表，逐个请求图片URL，将响应以二进制方式写入文件，保存</li>
+</ol>
+<p>代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests <span class="keyword">as</span> rq</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line"><span class="comment"># Get response</span></span><br><span class="line">keyword = <span class="built_in">input</span>(<span class="string">&#x27;Input keyword to search: &#x27;</span>)</span><br><span class="line">keyword = <span class="built_in">str</span>(keyword)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Busy...&#x27;</span>)</span><br><span class="line">url = <span class="string">&#x27;http://image.baidu.com/search/index&#x27;</span></span><br><span class="line">data = &#123;    <span class="comment"># 发送get请求时上传的dict形式数据包</span></span><br><span class="line">    <span class="string">&#x27;tn&#x27;</span>: <span class="string">&#x27;baiduimage&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;ct&#x27;</span>: <span class="number">201326592</span>,</span><br><span class="line">    <span class="string">&#x27;cl&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">&#x27;lm&#x27;</span>: -<span class="number">1</span>,</span><br><span class="line">    <span class="string">&#x27;pv&#x27;</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;word&#x27;</span>: keyword,</span><br><span class="line">    <span class="string">&#x27;z&#x27;</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="string">&#x27;ie&#x27;</span>: <span class="string">&#x27;utf-8&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line">response = rq.get(url, data)</span><br><span class="line">response.encoding = <span class="string">&#x27;utf-8&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Match URLs</span></span><br><span class="line">match_pattern = <span class="string">r&#x27;&quot;objURL&quot;:&quot;([a-zA-Z0-9:_/.-]*)&quot;&#x27;</span></span><br><span class="line">matcher = re.<span class="built_in">compile</span>(match_pattern)</span><br><span class="line">objURL_list = matcher.findall(response.text)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;---------------------------------&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Find %d pics!&#x27;</span> %<span class="built_in">len</span>(objURL_list))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Save pics</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Busy...&#x27;</span>)</span><br><span class="line">img_counter = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> each <span class="keyword">in</span> objURL_list:</span><br><span class="line">    img_page = rq.get(each)</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./catch_pics/&#x27;</span>+<span class="built_in">str</span>(img_counter)+<span class="string">&#x27;.jpg&#x27;</span>, <span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> img:</span><br><span class="line">        img.write(img_page.content)</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">str</span>(img_counter)+<span class="string">&#x27;.jpg is done!&#x27;</span>)</span><br><span class="line">    img_counter += <span class="number">1</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;---------------------------------&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Done with %d pics!&#x27;</span> %img_counter)</span><br></pre></td></tr></table></figure>
+
+<p>目前这个demo只支持一次扒下来30张图，原因是百度图片搜索后默认先加载出30张图。如果希望可以扒下来更多的图，需要实现“翻页”功能。</p>
+<p>先用百度图片随便搜索一个关键字（如cat），在返回结果之后打开开发者工具，在Network中查看Headers的数据，发现每30张新图片开始加载时收到XHR，查看发现关键内容pn，怀疑：</p>
+<ul>
+<li>pn：已经显示的图片数page number</li>
+</ul>
+<p>如果猜测正确，我们只需要在发送请求时写入pn为希望显示的图片数即可，然后一切照旧。</p>
+<p>以后会验证猜想继续改进本demo。</p>
+<hr>
+<p>2018.8.6<br>整理了一遍代码，现在支持多页扒图，可以选择扒图的页数。修改了发送请求的url为旧版百度图片网址，因为觉得旧版肯定支持数据包中pn的接收（不过似乎新版也可以，和网页布局无关…都是服务器去处理）。</p>
+<p>修改后的代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests <span class="keyword">as</span> rq</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line"><span class="comment"># Get response</span></span><br><span class="line">keyword = <span class="built_in">input</span>(<span class="string">&#x27;Input keyword to search: &#x27;</span>)</span><br><span class="line">keyword = <span class="built_in">str</span>(keyword)</span><br><span class="line">pages = <span class="built_in">input</span>(<span class="string">&#x27;How many pages do you want to search?(About 60p per-page): &#x27;</span>)</span><br><span class="line">pages = <span class="built_in">int</span>(pages)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Busy...&#x27;</span>)</span><br><span class="line">url = <span class="string">&#x27;http://image.baidu.com/search/flip&#x27;</span></span><br><span class="line">page_index = <span class="number">1</span></span><br><span class="line">objURL_list = []</span><br><span class="line"><span class="keyword">while</span> page_index &lt;= pages:</span><br><span class="line">    data = &#123;</span><br><span class="line">        <span class="string">&#x27;tn&#x27;</span>: <span class="string">&#x27;baiduimage&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;word&#x27;</span>: keyword,</span><br><span class="line">        <span class="string">&#x27;ie&#x27;</span>: <span class="string">&#x27;utf-8&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;pn&#x27;</span>: page_index-<span class="number">1</span> * <span class="number">20</span></span><br><span class="line">    &#125;</span><br><span class="line">    response = rq.get(url, data)</span><br><span class="line">    response.encoding = <span class="string">&#x27;utf-8&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Match URLs</span></span><br><span class="line">    match_pattern = <span class="string">r&#x27;&quot;objURL&quot;:&quot;([a-zA-Z0-9:_/.-]*)&quot;&#x27;</span></span><br><span class="line">    matcher = re.<span class="built_in">compile</span>(match_pattern)</span><br><span class="line">    objURL_list += matcher.findall(response.text)</span><br><span class="line">    page_index += <span class="number">1</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;---------------------------------&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Totally find %d pics!&#x27;</span> %<span class="built_in">len</span>(objURL_list))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;---------------------------------&#x27;</span>)</span><br><span class="line"><span class="comment"># Save pics</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Busy...&#x27;</span>)</span><br><span class="line">img_counter = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> each <span class="keyword">in</span> objURL_list:</span><br><span class="line">    img_page = rq.get(each)</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./catch_pics/&#x27;</span>+<span class="built_in">str</span>(img_counter)+<span class="string">&#x27;.jpg&#x27;</span>, <span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> img:</span><br><span class="line">        img.write(img_page.content)</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">str</span>(img_counter+<span class="number">1</span>)+<span class="string">&#x27; of &#x27;</span>+<span class="built_in">str</span>(<span class="built_in">len</span>(objURL_list))+<span class="string">&#x27; pics&#x27;</span>+<span class="string">&#x27; are done!&#x27;</span>)</span><br><span class="line">    img_counter += <span class="number">1</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;---------------------------------&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Done with %d pics!&#x27;</span> %img_counter)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>2018.8.8<br>重构了大量代码，因为发现了许多之前的错误。以之前的版本为基础设计了一个在safebooru扒图的爬虫，增加了一些细节如headers伪装、爬取频率减低等。</p>
+<p>代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests <span class="keyword">as</span> rq</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;未来考虑加入多关键词筛选&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line">keyword = <span class="built_in">input</span>(<span class="string">&#x27;Safebooru Search: &#x27;</span>)</span><br><span class="line">keyword = <span class="built_in">str</span>(keyword)</span><br><span class="line">pages = <span class="built_in">input</span>(<span class="string">&#x27;How many pages do you want to search?(About 40p per-page): &#x27;</span>)</span><br><span class="line">pages = <span class="built_in">int</span>(pages)</span><br><span class="line">url = <span class="string">&#x27;http://safebooru.org/index.php?page=post&amp;s=list&#x27;</span></span><br><span class="line">page_index = <span class="number">1</span></span><br><span class="line">img_url = []</span><br><span class="line"><span class="keyword">while</span> page_index &lt;= pages:</span><br><span class="line">    <span class="comment"># Create data pack</span></span><br><span class="line">    data = &#123;</span><br><span class="line">        <span class="string">&#x27;Accept&#x27;</span>:<span class="string">&#x27;text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;Accept-Encoding&#x27;</span>:<span class="string">&#x27;gzip, deflate, sdch&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;Accept-Language&#x27;</span>:<span class="string">&#x27;zh-CN,zh;q=0.8,en;q=0.6&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;Connection&#x27;</span>:<span class="string">&#x27;keep-alive&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;Host&#x27;</span>:<span class="string">&#x27;safebooru.org&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;Upgrade-Insecure-Requests&#x27;</span>:<span class="number">1</span>,</span><br><span class="line">        <span class="string">&#x27;User-Agent&#x27;</span>:<span class="string">&#x27;Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Mobile Safari/537.36&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;page&#x27;</span>:<span class="string">&#x27;post&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;s&#x27;</span>:<span class="string">&#x27;list&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;tags&#x27;</span>:keyword,</span><br><span class="line">        <span class="string">&#x27;pid&#x27;</span>:(page_index-<span class="number">1</span>)*<span class="number">40</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="comment"># Get response</span></span><br><span class="line">        res = rq.get(url, data, timeout=<span class="number">30</span>)</span><br><span class="line">        res.encoding = <span class="string">&#x27;utf-8&#x27;</span></span><br><span class="line">        <span class="comment"># Match images</span></span><br><span class="line">        match_patter = <span class="string">r&#x27;src=&quot;//safebooru.org/thumbnails/([a-zA-Z0-9_/:.-?]*)&quot;&#x27;</span></span><br><span class="line">        matcher = re.<span class="built_in">compile</span>(match_patter)</span><br><span class="line">        img_url += matcher.findall(res.text)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;---------------------------------&#x27;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;Get page %d of %d!&#x27;</span> %(page_index, pages))</span><br><span class="line">        <span class="keyword">if</span> page_index &lt; pages:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;Next page starts in 3 secs...&#x27;</span>)</span><br><span class="line">            time.sleep(<span class="number">3</span>)</span><br><span class="line">    <span class="keyword">except</span> rq.exceptions.ConnectionError <span class="keyword">as</span> e:</span><br><span class="line">        e_str = <span class="built_in">str</span>(e)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;Error type: %s! Jump to next page!&#x27;</span> %e_str)</span><br><span class="line">    <span class="keyword">finally</span>:</span><br><span class="line">        page_index += <span class="number">1</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Totally find %d pics!&#x27;</span> %<span class="built_in">len</span>(img_url))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;---------------------------------&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Preprocessing of pic URLs</span></span><br><span class="line">new_img_url = []</span><br><span class="line"><span class="keyword">for</span> each <span class="keyword">in</span> img_url:</span><br><span class="line">    new_each = each.replace(<span class="string">&#x27;thumbnail&#x27;</span>, <span class="string">&#x27;sample&#x27;</span>)</span><br><span class="line">    new_each = <span class="string">&#x27;http://safebooru.org//samples/&#x27;</span> + new_each</span><br><span class="line">    new_img_url.append(new_each)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create image folder</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(<span class="string">&#x27;./pic/&#x27;</span>):</span><br><span class="line">    os.mkdir(<span class="string">&#x27;./pic/&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Download pics</span></span><br><span class="line">img_counter = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> each <span class="keyword">in</span> new_img_url:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        img_page = rq.get(each, timeout=<span class="number">30</span>)</span><br><span class="line">        <span class="keyword">if</span> img_page.status_code == <span class="number">404</span>: <span class="comment"># Check URL&#x27;s validation for pics in safebooru</span></span><br><span class="line">            new_url = each.replace(<span class="string">&#x27;sample_&#x27;</span>, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">            new_url = new_url.replace(<span class="string">&#x27;samples&#x27;</span>, <span class="string">&#x27;images&#x27;</span>)</span><br><span class="line">            img_page = rq.get(new_url, timeout=<span class="number">30</span>)</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./pic/&#x27;</span>+<span class="built_in">str</span>(img_counter)+<span class="string">&#x27;.jpg&#x27;</span>, <span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> img:</span><br><span class="line">            img.write(img_page.content)</span><br><span class="line">        <span class="built_in">print</span>(<span class="built_in">str</span>(img_counter+<span class="number">1</span>)+<span class="string">&#x27; of &#x27;</span>+<span class="built_in">str</span>(<span class="built_in">len</span>(new_img_url))+<span class="string">&#x27; pics&#x27;</span>+<span class="string">&#x27; are done!&#x27;</span>)</span><br><span class="line">    <span class="keyword">except</span> rq.exceptions.ConnectionError <span class="keyword">as</span> e:</span><br><span class="line">        e_str = <span class="built_in">str</span>(e)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;Error type: %s! Jump to next image URL!&#x27;</span> %e_str)</span><br><span class="line">    <span class="keyword">finally</span>:</span><br><span class="line">        img_counter += <span class="number">1</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;---------------------------------&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Done with %d pics!&#x27;</span> %img_counter)</span><br><span class="line">os.system(<span class="string">&#x27;pause&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>2018.8.17</p>
+<p>东敲西改，零零碎碎写了几天之后完成了从Pixiv上爬取原图的代码，顺便感谢一下Pixiv官方终于支持在搜索时使用数字表示热度了，对过滤图片来说方便了不少（笑）。</p>
+<p>至此，爬图的小项目就告一段落吧~</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/08/04/Python%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%AC%94%E8%AE%B0/" rel="prev" title="Python正则表达式笔记">
+                  <i class="fa fa-chevron-left"></i> Python正则表达式笔记
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/08/07/%E5%87%A0%E4%B8%AA%E6%9C%89%E7%94%A8%E7%9A%84ACG%E5%9B%BE%E7%89%87%E7%BD%91%E7%AB%99/" rel="next" title="几个有用的ACG图片网站">
+                  几个有用的ACG图片网站 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Riko</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

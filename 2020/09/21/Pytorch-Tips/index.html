@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/kasumi-apple-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/kasumi-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/kasumi-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Helvetica:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"rikoli.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.8.1","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="Pytorch基本用法记录。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pytorch Tips">
+<meta property="og:url" content="https://rikoli.github.io/2020/09/21/Pytorch-Tips/index.html">
+<meta property="og:site_name" content="Rikoの地下劇場">
+<meta property="og:description" content="Pytorch基本用法记录。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s1.ax1x.com/2020/09/21/wq1Gpd.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/09/21/wq8goT.png">
+<meta property="article:published_time" content="2020-09-21T13:17:03.000Z">
+<meta property="article:modified_time" content="2022-02-05T12:54:38.173Z">
+<meta property="article:author" content="Riko">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.ax1x.com/2020/09/21/wq1Gpd.png">
+
+
+<link rel="canonical" href="https://rikoli.github.io/2020/09/21/Pytorch-Tips/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://rikoli.github.io/2020/09/21/Pytorch-Tips/","path":"2020/09/21/Pytorch-Tips/","title":"Pytorch Tips"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Pytorch Tips | Rikoの地下劇場</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Rikoの地下劇場</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">日日精进</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E5%9B%BE"><span class="nav-number">1.</span> <span class="nav-text">计算图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pytorch%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">Pytorch数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%A0%E9%87%8F%E5%BA%95%E5%B1%82%E7%BB%93%E6%9E%84"><span class="nav-number">2.1.</span> <span class="nav-text">张量底层结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%A0%E9%87%8F%E5%87%A0%E4%B8%AA%E5%85%B3%E9%94%AE%E5%B1%9E%E6%80%A7"><span class="nav-number">2.2.</span> <span class="nav-text">张量几个关键属性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E5%90%91-%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E4%B8%80%E8%88%AC%E7%BC%96%E5%86%99%E6%B5%81%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">前向&#x2F;反向传播一般编写流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%AB%98%E9%98%B6API"><span class="nav-number">4.</span> <span class="nav-text">高阶API</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%84%E5%BB%BA%E6%A8%A1%E5%9E%8B"><span class="nav-number">4.1.</span> <span class="nav-text">构建模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="nav-number">4.2.</span> <span class="nav-text">损失函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E5%99%A8"><span class="nav-number">4.3.</span> <span class="nav-text">优化器</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Riko"
+      src="/images/kasumi.png">
+  <p class="site-author-name" itemprop="name">Riko</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/RikoLi" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;RikoLi" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://lovelive.ws/" title="https:&#x2F;&#x2F;lovelive.ws&#x2F;" rel="noopener" target="_blank">μ's时光蛋</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://aqours.tv/" title="https:&#x2F;&#x2F;aqours.tv&#x2F;" rel="noopener" target="_blank">Aqours许愿瓶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liella.tv/" title="https:&#x2F;&#x2F;liella.tv&#x2F;" rel="noopener" target="_blank">Liella星象馆</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://rikoli.github.io/2020/09/21/Pytorch-Tips/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/kasumi.png">
+      <meta itemprop="name" content="Riko">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rikoの地下劇場">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Pytorch Tips
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-09-21 21:17:03" itemprop="dateCreated datePublished" datetime="2020-09-21T21:17:03+08:00">2020-09-21</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-02-05 20:54:38" itemprop="dateModified" datetime="2022-02-05T20:54:38+08:00">2022-02-05</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">编程</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>Pytorch基本用法记录。</p>
+<span id="more"></span>
+
+<h1 id="计算图"><a href="#计算图" class="headerlink" title="计算图"></a>计算图</h1><p>计算图是自动微分实现的一种流行的方式，将数学运算按照顺序组织成一张无环图，节点记录运算算符，边记录数据流。通过对图节点的深度遍历可以前向计算每个节点的计算结果，然后递归地计算每个节点的梯度，最终可以根据需要，借助链式法则计算任何参数的梯度。</p>
+<p>计算图定义前向和反向传播有两种方式：</p>
+<ul>
+<li>先创建前向计算图，然后在同一张图上反向计算梯度</li>
+<li>先建立前向计算图，然后根据相反的拓扑关系补充新的节点，在原图后建立反向的计算图计算梯度</li>
+</ul>
+<p>第一种方法比较常见。例如：</p>
+<p><img src="https://s1.ax1x.com/2020/09/21/wq1Gpd.png" alt="wq1Gpd.png"></p>
+<p>其中黑色为前向传播数据流，红色为反向传播每条边记录的当前位置的梯度。根据链式法则可以递归地从O开始反向计算任意一个变量的梯度，只需要连乘即可。例如：$\frac{\partial O}{\partial W} = \frac{\partial O}{\partial t} \frac{\partial t}{\partial h} \frac{\partial h}{\partial W}$。</p>
+<p>计算图按照实现机制分为两类：</p>
+<ul>
+<li>静态图，如TensorFlow</li>
+<li>动态图，如Pytorch</li>
+</ul>
+<p>早期TensorFlow使用的静态图需要在使用前定义图的结构，一旦定义好之后拓扑关系不能再改变。Pytorch使用动态图策略，在每次训练的循环中，计算图都被重新定义，但是保留每次迭代的参数状态（比如梯度信息）。</p>
+<p><em>注：目前TensorFlow也可以使用tf.Gradient定义动态图了</em></p>
+<h1 id="Pytorch数据类型"><a href="#Pytorch数据类型" class="headerlink" title="Pytorch数据类型"></a>Pytorch数据类型</h1><h2 id="张量底层结构"><a href="#张量底层结构" class="headerlink" title="张量底层结构"></a>张量底层结构</h2><p>Pytorch中使用<code>THTensor</code>定义计算图中的数据结构，通过<code>THTensor</code>的运算自动构建运算图。为了节省内存开支，<code>THTensor</code>对象被设计成如下的结构：</p>
+<p><img src="https://s1.ax1x.com/2020/09/21/wq8goT.png" alt="wq8goT.png"></p>
+<ul>
+<li>THTensor：记录维度、步长等描述性信息，此外包括THStorage指针</li>
+<li>THStorage：记录数据保存的内存分配</li>
+<li>Data：内存中真实的数据</li>
+</ul>
+<p>对于一些操作，比如改变张量某个位置的值，或者是类似reshape一类的操作，得到不同的<code>THTensor</code>对象，但是它们共享相同的底层数据Data，从而节省了内存开支。</p>
+<h2 id="张量几个关键属性"><a href="#张量几个关键属性" class="headerlink" title="张量几个关键属性"></a>张量几个关键属性</h2><p>假设我们有张量<code>tensor</code>，如下三个属性描述了张量的数据与交互：</p>
+<ul>
+<li><code>tensor.data</code>：张量的数据</li>
+<li><code>tensor.grad</code>：张量的梯度</li>
+<li><code>tensor.grad_fn</code>：张量由哪个函数计算而来，比如$tensor=\sigma (x)$，那么对应函数就是$\sigma(\bullet)$，可以通过调用<code>tensor.grad_fn.next_functions</code>遍历计算图节点</li>
+</ul>
+<h1 id="前向-反向传播一般编写流程"><a href="#前向-反向传播一般编写流程" class="headerlink" title="前向/反向传播一般编写流程"></a>前向/反向传播一般编写流程</h1><p>大致流程如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># optimizer: 定义的优化器</span></span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> epoches:</span><br><span class="line">    <span class="keyword">for</span> batch <span class="keyword">in</span> batches:</span><br><span class="line">        x, y = load_data(dataset)</span><br><span class="line">        optimizer.zero_grad() <span class="comment"># 将累计梯度清零</span></span><br><span class="line">        output = net(x)</span><br><span class="line">        loss = compute_loss(output, y)</span><br><span class="line">        loss.backward() <span class="comment"># 反向传播计算梯度</span></span><br><span class="line">        optimizer.step() <span class="comment"># 优化器梯度更新</span></span><br></pre></td></tr></table></figure>
+
+<p>Pytorch编写的动态图在连续迭代之间保留张量的梯度信息，如果不进行任何处理，新一轮迭代中计算的梯度会和之前积累的梯度相乘，如果使用每个batch的梯度更新，那么使用<code>.zero_grad()</code>方法清零之前的梯度。</p>
+<h1 id="高阶API"><a href="#高阶API" class="headerlink" title="高阶API"></a>高阶API</h1><h2 id="构建模型"><a href="#构建模型" class="headerlink" title="构建模型"></a>构建模型</h2><p>继承<code>torch.nn.Module</code>类编写自己需要的模型/层/模块，或者一切可以描述成黑箱的计算过程。</p>
+<p>模板：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyNet</span>(<span class="params">torch.nn.Module</span>):</span></span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">    	继承torch.nn.Module：</span></span><br><span class="line"><span class="string">    		- 重载__init__()：描述基本信息</span></span><br><span class="line"><span class="string">    		- 重载forward()：描述数据前向传播</span></span><br><span class="line"><span class="string">    &#x27;&#x27;&#x27;</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, input_size, output_size, hidden_size</span>):</span></span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self.hidden = torch.nn.Linear(input_size, hidden_size)</span><br><span class="line">        self.output = torch.nn.Linear(hidden_size, output_size)</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        x = self.hidden(x)</span><br><span class="line">        x = torch.sigmoid(x)</span><br><span class="line">        x = self.output(x)</span><br><span class="line">        <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
+
+<p>由于在<code>torch.nn.Module</code>类中定义了<code>__call__()</code>方法回调<code>forward()</code>，因此继承得到的<code>MyNet</code>对象可以直接传递参数完成前向传播，比如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net = MyNet()</span><br><span class="line">y = net(x)</span><br></pre></td></tr></table></figure>
+
+<h2 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h2><h2 id="优化器"><a href="#优化器" class="headerlink" title="优化器"></a>优化器</h2>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/04/09/Operating-System/" rel="prev" title="Operating System">
+                  <i class="fa fa-chevron-left"></i> Operating System
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/11/10/Neo-Aspect/" rel="next" title="Neo-Aspect">
+                  Neo-Aspect <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Riko</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

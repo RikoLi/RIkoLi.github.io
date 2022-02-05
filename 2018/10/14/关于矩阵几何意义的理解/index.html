@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/kasumi-apple-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/kasumi-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/kasumi-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Helvetica:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"rikoli.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.8.1","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="学工程的人都在用矩阵，但是很多时候在学校学的东西十分僵硬，让人接受起来很困难，导致想熟练掌握矩阵代数要耗费大量时间，换句话说就是“学了很多，但是还是很费解”，因为矩阵代数直观上似乎不是那么“一眼就懂”（主要是我太菜，数学大师们当我没说2333）。 那么我们或许要考虑一下矩阵代数的集合含义，在对一些内容的理解上应该会有所帮助，至少不会觉得一些东西很“绕”，也更容易让人记住+理解。 本文就整理一下个人">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于矩阵几何意义的理解">
+<meta property="og:url" content="https://rikoli.github.io/2018/10/14/%E5%85%B3%E4%BA%8E%E7%9F%A9%E9%98%B5%E5%87%A0%E4%BD%95%E6%84%8F%E4%B9%89%E7%9A%84%E7%90%86%E8%A7%A3/index.html">
+<meta property="og:site_name" content="Rikoの地下劇場">
+<meta property="og:description" content="学工程的人都在用矩阵，但是很多时候在学校学的东西十分僵硬，让人接受起来很困难，导致想熟练掌握矩阵代数要耗费大量时间，换句话说就是“学了很多，但是还是很费解”，因为矩阵代数直观上似乎不是那么“一眼就懂”（主要是我太菜，数学大师们当我没说2333）。 那么我们或许要考虑一下矩阵代数的集合含义，在对一些内容的理解上应该会有所帮助，至少不会觉得一些东西很“绕”，也更容易让人记住+理解。 本文就整理一下个人">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-10-14T14:50:51.000Z">
+<meta property="article:modified_time" content="2022-02-05T12:49:43.455Z">
+<meta property="article:author" content="Riko">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://rikoli.github.io/2018/10/14/%E5%85%B3%E4%BA%8E%E7%9F%A9%E9%98%B5%E5%87%A0%E4%BD%95%E6%84%8F%E4%B9%89%E7%9A%84%E7%90%86%E8%A7%A3/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://rikoli.github.io/2018/10/14/%E5%85%B3%E4%BA%8E%E7%9F%A9%E9%98%B5%E5%87%A0%E4%BD%95%E6%84%8F%E4%B9%89%E7%9A%84%E7%90%86%E8%A7%A3/","path":"2018/10/14/关于矩阵几何意义的理解/","title":"关于矩阵几何意义的理解"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>关于矩阵几何意义的理解 | Rikoの地下劇場</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Rikoの地下劇場</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">日日精进</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%8E%E5%90%91%E9%87%8F%E5%BC%80%E5%A7%8B"><span class="nav-number">1.</span> <span class="nav-text">从向量开始</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%91%E9%87%8F%E8%A1%A8%E7%A4%BA%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">1.1.</span> <span class="nav-text">向量表示什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%91%E9%87%8F%E8%8C%83%E6%95%B0"><span class="nav-number">1.2.</span> <span class="nav-text">向量范数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5"><span class="nav-number">2.</span> <span class="nav-text">矩阵</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5%E4%B8%8E%E5%90%91%E9%87%8F%E4%B9%98%E6%B3%95"><span class="nav-number">2.1.</span> <span class="nav-text">矩阵与向量乘法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%98%E6%B3%95"><span class="nav-number">2.2.</span> <span class="nav-text">矩阵与矩阵乘法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97%E7%9A%84%E7%90%86%E8%A7%A3"><span class="nav-number">2.3.</span> <span class="nav-text">一些矩阵运算的理解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%86%E7%9F%A9%E9%98%B5%E4%B8%8E%E4%BC%AA%E9%80%86%E7%9F%A9%E9%98%B5"><span class="nav-number">2.3.1.</span> <span class="nav-text">逆矩阵与伪逆矩阵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E5%BE%81%E5%80%BC%E4%B8%8E%E7%89%B9%E5%BE%81%E5%90%91%E9%87%8F"><span class="nav-number">2.3.2.</span> <span class="nav-text">特征值与特征向量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SVD%E4%B8%8E%E5%A5%87%E5%BC%82%E5%80%BC"><span class="nav-number">2.3.3.</span> <span class="nav-text">SVD与奇异值</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Riko"
+      src="/images/kasumi.png">
+  <p class="site-author-name" itemprop="name">Riko</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/RikoLi" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;RikoLi" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://lovelive.ws/" title="https:&#x2F;&#x2F;lovelive.ws&#x2F;" rel="noopener" target="_blank">μ's时光蛋</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://aqours.tv/" title="https:&#x2F;&#x2F;aqours.tv&#x2F;" rel="noopener" target="_blank">Aqours许愿瓶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liella.tv/" title="https:&#x2F;&#x2F;liella.tv&#x2F;" rel="noopener" target="_blank">Liella星象馆</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://rikoli.github.io/2018/10/14/%E5%85%B3%E4%BA%8E%E7%9F%A9%E9%98%B5%E5%87%A0%E4%BD%95%E6%84%8F%E4%B9%89%E7%9A%84%E7%90%86%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/kasumi.png">
+      <meta itemprop="name" content="Riko">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rikoの地下劇場">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          关于矩阵几何意义的理解
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-10-14 22:50:51" itemprop="dateCreated datePublished" datetime="2018-10-14T22:50:51+08:00">2018-10-14</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-02-05 20:49:43" itemprop="dateModified" datetime="2022-02-05T20:49:43+08:00">2022-02-05</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/" itemprop="url" rel="index"><span itemprop="name">线性代数</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>学工程的人都在用矩阵，但是很多时候在学校学的东西十分僵硬，让人接受起来很困难，导致想熟练掌握矩阵代数要耗费大量时间，换句话说就是“学了很多，但是还是很费解”，因为矩阵代数直观上似乎不是那么“一眼就懂”（主要是我太菜，数学大师们当我没说2333）。</p>
+<p>那么我们或许要考虑一下矩阵代数的集合含义，在对一些内容的理解上应该会有所帮助，至少不会觉得一些东西很“绕”，也更容易让人记住+理解。</p>
+<p>本文就整理一下个人理解的矩阵的“意义”吧，感谢网络让我找到不少资料，记录会比较零碎，主要是根据课堂所学内容同步进行，有哪里不太好理解就记下来，均是个人理解。</p>
+<span id="more"></span>
+
+<h1 id="从向量开始"><a href="#从向量开始" class="headerlink" title="从向量开始"></a>从向量开始</h1><p>为什么从向量说起呢？就像标量一个数（1,2j,-3,5.81,-3.121等等所有复数）是标量体系下的基石一样，向量是矩阵运算体系的基石，它是矩阵代数运算（在矩阵代数中应该叫线性变换？）的基本运算单元，事实上向量是标量的扩充，更一般化，而标量只是特殊的向量而已。</p>
+<h2 id="向量表示什么？"><a href="#向量表示什么？" class="headerlink" title="向量表示什么？"></a>向量表示什么？</h2><p>向量是一组数，这组数的个数称<strong>维度</strong>。比如一个m维向量：</p>
+<p>$$\mathbf{a} = [a_1, a_2, …, a_m]$$</p>
+<p>我们可以认为它是在m维空间中的一个“实例”，是一个独一无二的个体。</p>
+<p>向量可以用来表示许多物理存在。举个例子来类比吧，Riko是一个根据某种方式定义的空间下存在的人，那么Riko可以看做这个空间下的一个向量：<br>$$<br>Riko = [身高，体重，性别，年龄，职业，…]<br>$$</p>
+<p>向量Riko的维度很高，很可能是无穷维的。这个向量描述了Riko这个人在空间下的全部属性。</p>
+<h2 id="向量范数"><a href="#向量范数" class="headerlink" title="向量范数"></a>向量范数</h2><p>刚开始学的时候我对范数的理解仅仅是去类比Euclidean范数（对，就是那个元素平方和开方，二范数），后来才知道所有范数应该有着更广义的含义。</p>
+<p>向量范数是对向量在其存在空间内对其“尺度”或者“大小”（广义上的）一种衡量手段，有着不同的定义方式，是一种存在尺度的描述。</p>
+<h1 id="矩阵"><a href="#矩阵" class="headerlink" title="矩阵"></a>矩阵</h1><p>开始我们的重点，矩阵是什么？怎么直观去理解？</p>
+<p>矩阵的书面样子很简洁，m行n列的一组数：</p>
+<p>$$<br>\mathbf{A} = \begin{bmatrix}<br>a_{11} &amp; \cdots &amp; a_{1n} \<br>\vdots &amp; \ddots &amp; \vdots \<br>a_{m1} &amp; \cdots &amp; a_{mn}<br>\end{bmatrix}<br>$$</p>
+<p>单独一个矩阵几何意义是一种空间上的变换，将他看成一个算子[^1]，表示着一种扭曲原空间的“操作”。<br>[^1]:用算子这个词在数学上可能不够严谨，但这里方便自己理解就说成这样了。</p>
+<h2 id="矩阵与向量乘法"><a href="#矩阵与向量乘法" class="headerlink" title="矩阵与向量乘法"></a>矩阵与向量乘法</h2><p>联系矩阵和向量乘法规则，我们可以这样理解矩阵作为因子的作用：</p>
+<ul>
+<li>对原始向量进行了m维空间→n维（或者反过来）空间的升维/降维映射</li>
+<li>一定把m维向量映射到n维或者把n维映射到m维，总之是把向量在两个维度空间之间变换</li>
+</ul>
+<p>比如：</p>
+<p>$$\mathbf{a}<em>{1\times m} \times \mathbf{A}</em>{m\times n} = \mathbf{b}_{1\times n}$$</p>
+<p>就是把原来的m维空间中的向量<strong>a</strong>映射到了n维空间中，起了个新名字叫<strong>b</strong>。</p>
+<h2 id="矩阵与矩阵乘法"><a href="#矩阵与矩阵乘法" class="headerlink" title="矩阵与矩阵乘法"></a>矩阵与矩阵乘法</h2><p>矩阵乘法视为许多种空间变换的连续作用，如：</p>
+<p>$$<br>\mathbf{C} = \mathbf{A}\mathbf{B}<br>$$</p>
+<p>矩阵<strong>C</strong>表示一种变换，这种变换为依次进行变换<strong>A</strong>和<strong>B</strong>的等效变换。</p>
+<p>我们知道矩阵乘法中左乘和右乘是不同的，而且行、列数必须协调。其实很好理解，如：存在一个矩阵表示从m维到n维变换，每次变换的起始空间必须是m维或者n维空间，因为矩阵描述的就是这两个维度之间的变换方式，不可能直接对m维空间进行一个p维（p≠m）到n维的变换，因此矩阵乘法一定要协调。</p>
+<p>至于左右乘，可以理解为进行变换的顺序不一样，其等价变换涉及的空间变换关系也不同。</p>
+<h2 id="一些矩阵运算的理解"><a href="#一些矩阵运算的理解" class="headerlink" title="一些矩阵运算的理解"></a>一些矩阵运算的理解</h2><h3 id="逆矩阵与伪逆矩阵"><a href="#逆矩阵与伪逆矩阵" class="headerlink" title="逆矩阵与伪逆矩阵"></a>逆矩阵与伪逆矩阵</h3><p>矩阵的可逆性可以理解为线性变换的可逆性。若方阵<strong>A</strong>可逆，表示<strong>A</strong>这个m维→m维的变换具有可逆性，我可以将m维空间里的向量经过<strong>A</strong>变换成m维空间的另一个向量，这新向量可以通过逆变换$\mathbf{A}^{-1}$再变换回原来的向量。</p>
+<p>如果矩阵不再是方阵呢？我们要是表示m维与n维空间变换关系的可逆性与否呢？这时候引入了伪逆的概念。</p>
+<p>伪逆描述了不同维数空间之间线性变换的可逆性。</p>
+<h3 id="特征值与特征向量"><a href="#特征值与特征向量" class="headerlink" title="特征值与特征向量"></a>特征值与特征向量</h3><p>当时学了特征分解之后，虽然知道如何求解特征值和特征向量，但是对它们的意义还是一头雾水。</p>
+<p>实际上特征分解在做这样一件事：</p>
+<ul>
+<li>将原先用一个矩阵描述的线性变换<strong>A</strong>分解为基础的变换叠加</li>
+</ul>
+<p>特征分解定义是这样：</p>
+<p>$$<br>\mathbf{A} = \mathbf{U}\mathbf{\Sigma}\mathbf{U}^H<br>$$</p>
+<p>酉矩阵<strong>U</strong>描述了变换发生的维度，特征值矩阵$\mathbf{\Sigma}$描述了每个维度上变换的“强度”或“倍数”，其对角线上元素从上到下是特征值的降序排列。</p>
+<p>通过特征值分解可以明确看出一个线性变换的主要变换发生在哪个维度上（根据特征向量判断），以及变换的强度如何（根据特征值大小判断）。</p>
+<p>从特征值和特征向量的定义看：</p>
+<p>$$<br>\mathbf{A}\mathbf{x} = \lambda\mathbf{x}<br>$$</p>
+<p>对特征向量进行线性变换只进行在特征向量方向上的伸缩变换，没有其他变换。也就是说，满足这种性质的向量就是一个变换的特征向量，对应伸缩变换的因子就是特征值。</p>
+<h3 id="SVD与奇异值"><a href="#SVD与奇异值" class="headerlink" title="SVD与奇异值"></a>SVD与奇异值</h3><p>SVD即奇异值分解，起到和特征分解类似的作用，也是将一个线性变换分解成基础的变换叠加。</p>
+<p>SVD是对一般矩阵而言的，不要求一定为方阵，分解表示如下：</p>
+<p>$$<br>\mathbf{A} = \mathbf{U}\mathbf{\Sigma}\mathbf{V}^H<br>$$</p>
+<p>含义基本和特征分解相同，不过是描述对象变成了非方阵。</p>
+<p>很自然我们想到，对方阵的SVD和特征分解是什么关系呢？它们在方阵的情况下一样么？</p>
+<p>SVD和特征分解在方阵情况下不是完全一样的，这是由于计算SVD的时候用到的方法限定的。实际上奇异值的计算是借助了特征值计算而来的，对非方阵<strong>A</strong>，我们用$\mathbf{A}^H\mathbf{A}$构造一个方阵，对这个方阵进行特征值分解，得到特征值$\lambda_i$，<strong>A</strong>的奇异值$\sigma_i$就是$\sqrt{\lambda_i}$。</p>
+<p>为啥奇异值和特征值就差一个平方关系呢？从两种分解的定义上我们很容易推得，此处不推导。</p>
+<p>从SVD和特征分解倒是能看出类似于一种哲学式的思想：<strong>我们总是尝试着用熟悉的事物去解释新的事物，建立已知和未知的联系，使我们可以用熟悉的方式处理新事物。</strong> 哎，跑远了跑远了。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/09/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BASVM%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/" rel="prev" title="机器学习笔记：支持向量机SVM基本原理">
+                  <i class="fa fa-chevron-left"></i> 机器学习笔记：支持向量机SVM基本原理
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/10/19/%E5%9F%BA%E4%BA%8EKeras%E7%9A%84%E4%BA%BA%E8%84%B8%E9%AA%8C%E8%AF%81demo/" rel="next" title="基于Keras的人脸验证demo">
+                  基于Keras的人脸验证demo <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Riko</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
